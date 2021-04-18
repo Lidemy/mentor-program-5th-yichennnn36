@@ -1,6 +1,6 @@
 ## 交作業流程
 
-1. 使用 `git clone` 將檔案存至電腦
+1. 檔案存至電腦 ：`git clone https://github.com/Lidemy/mentor-program-5th-yichennnn36`
 2. 建立新的 branch，並切換至此：`git checkout -b week1HW`
 3. 作業完成後，有新加入的檔案要加進 git：`git add .`
 4. 再更新改動的版本：`git commit -am "finish_week1HW"`
