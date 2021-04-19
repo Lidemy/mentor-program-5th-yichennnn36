@@ -58,12 +58,12 @@ aaa.txt  folder
 今天你想要新增一個叫做 wifi 的資料夾，並且在裡面建立一個叫 afu.js 的檔案，可以這樣做
 
 ```
-[22:27:33] liuyichen ➜ ~/desktop» mkdir wifi         //新增 wifi 資料夾                      
-[22:28:40] liuyichen ➜ ~/desktop» ls                 //印出檢查
+[22:27:33] liuyichen ➜ mkdir wifi         //新增 wifi 資料夾                      
+[22:28:40] liuyichen ➜ ls                 //印出檢查
 wifi
-[22:28:51] liuyichen ➜ ~/desktop» cd wifi            //進入 wifi 資料夾內
-[22:28:57] liuyichen ➜ ~/desktop/wifi» touch afu.js  //新增 afu.js                    
-[22:29:05] liuyichen ➜ ~/desktop/wifi» ls            //印出檢查是否成功
+[22:28:51] liuyichen ➜ cd wifi            //進入 wifi 資料夾內
+[22:28:57] liuyichen ➜ touch afu.js  //新增 afu.js                    
+[22:29:05] liuyichen ➜ ls            //印出檢查是否成功
 afu.js
 
 ```
