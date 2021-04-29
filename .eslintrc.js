@@ -18,6 +18,6 @@ module.exports = {
   },
   rules: {
     'no-console': 'off',
-    semi: 0
+    semi: ['error', 'always']
   }
-}
+};
