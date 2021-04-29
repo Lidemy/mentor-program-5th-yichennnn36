@@ -16,13 +16,13 @@ rl.on('close', () => {
 function solve(lines) {
   const [n, m] = lines[0].split(' ');
   for (let i = Number(n); i < Number(m); i++) {
-    if (narcNum(i)) {
+    if (isNarcNum(i)) {
       console.log(i)
     }
   }
 }
 
-function narcNum(n) {
+function isNarcNum(n) {
   let m = n;
   const digits = findDigits(n);
   let sum = 0;
