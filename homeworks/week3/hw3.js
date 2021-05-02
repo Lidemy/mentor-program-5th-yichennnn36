@@ -11,20 +11,25 @@ rl.on('line', (line) => {
 
 rl.on('close', () => {
   solve(lines);
-})
+});
 
 function solve(lines) {
   for (let i = 1; i < lines.length; i++) {
-    console.log(prime(Number(lines[i])));
+    if (Number(lines[i]) === 1) {
+      console.log('Composite');
+    } else if (isPrime(Number(lines[i]))) {
+      console.log('Prime');
+    } else {
+      console.log('Composite');
+    }
   }
 }
 
-function prime(n) {
-  if (n === 1) return 'Composite';
+function isPrime(n) {
   for (let i = 2; i <= n - 1; i++) {
     if (n % i === 0) {
-      return 'Composite';
+      return false;
     }
   }
-  return 'Prime';
+  return true;
 }

@@ -11,17 +11,17 @@ rl.on('line', (line) => {
 
 rl.on('close', () => {
   solve(lines);
-})
+});
 
 function solve(lines) {
   const s = lines[0];
-  console.log(strCheck(s));
+  console.log(s === reverse(s) ? 'True' : 'False');
 }
 
-function strCheck(str) {
-  let newStr = '';
+function reverse(str) {
+  let result = '';
   for (let i = str.length - 1; i >= 0; i--) {
-    newStr += str[i];
+    result += str[i];
   }
-  return newStr === str ? 'True' : 'False';
+  return result;
 }
