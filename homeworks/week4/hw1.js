@@ -4,13 +4,18 @@ const BASE_URL = 'https://lidemy-book-store.herokuapp.com';
 
 request(
   `${BASE_URL}/books?_limit=10`, (err, res, body) => {
+    if (err) {
+      return console.log('抓取失敗', err);
+    }
+    let data;
     try {
-      const data = JSON.parse(body);
-      for (let i = 0; i < data.length; i++) {
-        console.log(`${data[i].id} ${data[i].name}`);
-      }
+      data = JSON.parse(body);
     } catch (err) {
-      return console.log(err);
+      console.log(err);
+      return;
+    }
+    for (let i = 0; i < data.length; i++) {
+      console.log(`${data[i].id} ${data[i].name}`);
     }
   }
 );
