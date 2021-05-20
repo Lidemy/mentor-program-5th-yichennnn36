@@ -163,7 +163,7 @@ html, body {
 
 .comment {
   height: 200px;
-  width: 400px;
+  width: 350px;
   background: white;;
   border: 1px solid #c7e5ec;
   border-radius: 5px;
@@ -251,6 +251,7 @@ footer {
   background: #35564b;
   padding: 12px 0;
   color: white;
+  text-align: center;
 }
 
 @media(max-width: 768px) {
