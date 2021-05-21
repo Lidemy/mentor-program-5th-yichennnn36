@@ -159,6 +159,7 @@ html, body {
 
 .section__images img{
   width: 100%;
+  vertical-align: bottom;
 }
 
 .section__comment{
