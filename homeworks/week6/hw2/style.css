@@ -1,0 +1,112 @@
+html {
+  font-size: 12px;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+footer {
+  background: black;
+  padding: 18px 0;
+  color: #999999;
+  text-align: center;
+  border-top: 2px solid #fad312;
+}
+
+.wrapper {
+  background: white;
+  max-width: 645px;
+  margin: 8% auto;
+  box-shadow: 1.8px 2.4px 5px 0 rgba(0, 0, 0, 0.3);
+  border-top: 10px solid #fad312;
+}
+
+.sheet {
+  padding: 20px 40px 30px;
+}
+
+.sheet__title {
+  font-size: 36px;
+  letter-spacing: 0.1rem;
+  font-weight: bold;
+}
+
+.sheet__desc p {
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+.sheet__notice {
+  margin-bottom: 40px;
+  color: #e74149;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.required::after {
+  content: "*";
+  font-size: 16px;
+  color: #e74149;
+}
+
+.question__block {
+  margin-top: 50px;
+}
+
+.ques__input {
+  margin-top: 15px;
+}
+
+.ques__input input{
+  border: solid 1px #d0d0d0;
+  font-size: 14px;
+  padding: 6px;
+  width: 50%
+}
+
+.ques__input__type label{
+  font-size: 14px;
+  margin-left: 4px;
+}
+
+
+.ques__input__type {
+  line-height: 2.5rem;
+}
+
+.ques__title {
+  font-size: 20px;
+  margin: 20px 0 8px 0;
+}
+
+.ques__title-desc {
+  font-size: 13px;
+  margin: 0;
+}
+
+.submit {
+  margin-top: 60px;
+}
+
+.submit input {
+  background: #fad312;
+  border: none;
+  padding: 8px 24px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.alert__content {
+  font-size: 14;
+  font-weight: bold;
+}
+
+@media(max-width: 645px) {
+  .wrapper {
+    margin: 10% 16px;
+  }
+}
