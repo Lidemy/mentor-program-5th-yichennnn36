@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./normalize.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2:wght@800&family=Poppins&display=swap" rel="stylesheet">
+  <title>Todo LIst</title>
+</head>
+<body>
+  <div class="wrap">
+    <h1 class="todo__title">Todo List</h1>
+
+    <div class="todo__input">
+      <input type="text" placeholder="Add something to do here!" class="todo__input-text">
+      <button class="btn__add"></button>
+    </div>
+
+    <ul class="todo__list">
+      <li class="todo__list-item">
+        <input class="list__checkbox" type="checkbox">
+        <p class="list__text" type="text">Read books</p>
+        <input class="list__edit-text hide" type="text" value="Read books">
+        <button class="btn__edit">Edit</button>
+        <button class="btn__finish hide">OK</button>
+        <button class="btn__del"></button>
+      </li>
+      <li class="todo__list-item">
+        <input class="list__checkbox" type="checkbox" >
+        <p class="list__text" type="text">Go to GYM!</p>
+        <input class="list__edit-text hide" type="text" value="Go to GYM!">
+        <button class="btn__edit">Edit</button>
+        <button class="btn__finish hide">OK</button>
+        <button class="btn__del"></button>
+      </li>
+      <li class="todo__list-item">
+        <input class="list__checkbox" type="checkbox" >
+        <p class="list__text" type="text">Fix bug</p>
+        <input class="list__edit-text hide" type="text" value="Fix bug">
+        <button class="btn__edit">Edit</button>
+        <button class="btn__finish hide">OK</button>
+        <button class="btn__del"></button>
+      </li>
+    </ul>
+
+  </div>
+  <script src='./index.js'></script>
+</body>
+</html>

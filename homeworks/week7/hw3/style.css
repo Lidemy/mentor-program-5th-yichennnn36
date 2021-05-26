@@ -1,0 +1,227 @@
+body {
+  background: #747565 ;
+}
+
+.wrap {
+  max-width: 600px;
+  margin: 100px auto;
+  padding: 0 0 50px;
+  background: #f8f8f3;
+  border-radius: 1%;
+  border-top-right-radius: 10%;
+  box-shadow: 8px 12px 1px 0 #4a4d4c;
+
+}
+
+.todo__title {
+  font-size: 80px;
+  line-height: 10rem;
+  font-weight: bold;
+  color: #B49275;
+  font-family: 'Baloo Bhaina 2', cursive;
+  text-align: center;
+  padding: 20px 0 0;
+  margin: 0;
+}
+
+.todo__input {
+  margin: 20px 40px 40px;
+  position: relative;
+  text-align: center;
+}
+
+.todo__input-text {
+  font-size: 20px;
+  width: 340px;
+  border: transparent;
+  border-bottom: 4px dashed rgb(199, 204, 132);
+  padding: 10px 10px;
+  background: transparent;
+  letter-spacing: 1.2px;
+  outline: transparent;
+  transition: 0.4s ease-in-out;
+}
+
+.todo__input-text:hover {
+  border-bottom: 4px dashed #eeb71e;
+  background: #fdfce8;
+}
+
+.btn__add {
+  height: 30px;
+  width: 30px;
+  border: 2px solid #E6B93F;
+  background: #E6B93F;
+  box-sizing: border-box;
+  border-radius: 12%;
+  position: absolute;
+  right: 40px;
+  top: 7px;
+  appearance: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn__add::before, .btn__add::after {
+  content: '';
+  width: 18px;
+  height: 1px;
+  background: white;
+  border: 0.5px solid white;
+  border-radius: 20%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+  
+.btn__add::before {
+transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.todo__list {
+  margin: 0 72px;
+  padding-left: 0;
+}
+
+input[type="checkbox"] {
+  height: 20px;
+  width: 20px;
+  border: 2px solid #747565;
+  box-sizing: border-box;
+  border-radius: 3px;
+  position: relative;
+  appearance: none;
+  margin-top: 5px;
+}
+
+input[type="checkbox"]:checked {
+  background: #B49275;
+  border: 2px solid #B49275;
+}
+
+input[type="checkbox"]:checked::before {
+  content: '✓';
+  font-weight: bold;
+  font-size: 30px;
+  color: #595a4e;
+  position: absolute;
+  left: 0;
+  top: -15px;
+}
+
+.todo__list-item {
+  display: flex;
+  position: relative;
+  margin: 50px 0 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.list__text {
+  font-size: 28px;
+  word-wrap: break-word;
+  width: 300px;
+  line-height: 2.2rem;
+  margin: 0;
+  margin-left: 10px;
+}
+
+.list__edit-text {
+  background: rgb(199, 204, 132);
+  padding: 10px 0 10px 5px;
+  border: 2px solid rgb(199, 204, 132);
+  outline: transparent;
+  border-radius: 5px;
+  font-size: 28px;
+  position: absolute;
+  left: 32px;
+  top: -15px;
+}
+.done .list__text {
+  text-decoration: line-through;
+  text-decoration-color: #eeb71e;
+}
+
+.btn__del {
+  height: 30px;
+  width: 30px;
+  border: 2px solid #747565;
+  background: #747565;
+  box-sizing: border-box;
+  border-radius: 50%;
+  position: absolute;
+  right: 0;
+  top: 2px;
+  appearance: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn__del::before, .btn__del::after {
+  content: '';
+  width: 18px;
+  height: 1px;
+  background: white;
+  border: 0.5px solid white;
+  border-radius: 20%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.btn__del::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.btn__del::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.btn__edit {
+  height: 30px;
+  width: 60px;
+  background: #747565;
+  border: 0.2px solid #747565;
+  box-sizing: border-box;
+  border-radius: 6px;
+  position: absolute;
+  right: 40px;
+  top: 2px;
+  appearance: none;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn__finish {
+  height: 30px;
+  width: 60px;
+  background: #747565;
+  border: 0.2px solid #747565;
+  box-sizing: border-box;
+  border-radius: 6px;
+  position: absolute;
+  right: 40px;
+  top: 2px;
+  appearance: none;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn__add:hover, .btn__del:hover, .btn__edit:hover, .btn__finish {
+  transform: translate(0, -5px);
+}
+
+.hide {
+  display: none;
+}
+
+.active {
+  opacity: 0.5;
+  transform: translate(5px, -3px);
+}
