@@ -1,0 +1,258 @@
+nav {
+  background: white;
+  height: 80px;
+  box-shadow: 1.4px 1.4px 6px 0 #97a2a0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.nav__title {
+  font-size: 36px;
+  color: #489846;
+  font-family: Questrial, sans-serif;
+  padding: 22px 20px;
+}
+
+#select__control {
+  position: absolute;
+  opacity: 0;
+  z-index: -2;
+}
+
+.select__btn {
+  width: 40px;
+  height: 40px;
+  display: block;
+  position: absolute;
+  top: 18px;
+  right: 10px;
+  border-radius: 10%;
+}
+
+.select__btn span{
+  opacity: 0;
+}
+
+.select__btn::before {
+  content: '';
+  width: 28px;
+  height: 3px;
+  position: absolute;
+  left: 6px;
+  background: #ff7286;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  box-shadow: 0 8px 0 #ff7286, 0 -8px 0 #ff7286;
+
+}
+
+.nav__select {
+  width: 70%;
+  height: calc(100vh - 80px);
+  background: #eea0ac;
+  position: absolute;
+  top: 80px;
+  right: -100%;
+  transition: 0.5s;
+}
+
+#select__control:checked ~ nav .nav__select {
+  right: 0;
+}
+
+.nav__select a {
+  display: block;
+  text-decoration: none;
+  color: white;
+  margin: 50px 40px 40px;
+}
+
+.nav__select a:hover {
+  transform: translate(0, 2px);
+}
+
+.wrap {
+  margin: 80px auto 20px;
+}
+
+.section__content {
+  text-align: center;
+}
+
+.section__title {
+  display: inline-block;
+  margin: 60px auto 20px; 
+  font-size: 24px;
+  font-weight: bold;
+  border-left: 10px solid #a3dea2;
+  padding-left: 10px;
+}
+
+.faq {
+  margin: 20px 60px 60px;
+}
+
+.faq__item {
+  display: flex;
+  margin: 10px 0;
+  border-bottom: 2px solid #a6e2c0;
+  padding: 14px 0 30px;
+  overflow: hidden;  
+  /* 又學到利用 height 搭配 overflow 的用法，原本用display:none，但完全不知道怎麼用特效.. */
+  max-height: 450px;
+  transition: max-height 0.4s;
+  cursor: pointer;
+}
+
+.hide {
+  max-height: 26px;
+  transition: max-height 0.4s;
+}
+
+.faq__item-mark {
+  color: #489846;
+  font-family: Questrial, sans-serif;
+  font-size: 26px;
+}
+
+.faq__item-content {
+  text-align: left;
+}
+
+.faq__item-title {
+  text-decoration: none;
+  font-size: 17px;
+  color: black;
+  line-height: 1.5rem;
+  display: inline-block;
+}
+
+.faq__item-text {
+  line-height: 1.4rem;
+  font-size: 14px;
+  margin: 30px 0;
+}
+
+.footer__top {
+  display: flex;
+  flex-direction: column-reverse;
+  background: #e8efee;
+  height: 220px;
+  padding: 30px;
+}
+
+.footer__site-content {
+  color: #484848;
+  line-height: 1.6rem;
+  font-size: 14px;
+  margin-top: 40px;
+}
+
+.footer__site-title {
+  font-size: 40px;
+  color: #489846;
+  font-family: 'Raleway', sans-serif;
+}
+
+.footer__site-social {
+  font-size: 14px;
+  color: #484848;
+  font-family: 'Raleway', sans-serif;
+  margin-top: 6px;
+}
+
+.footer__bottom {
+  color: white;
+  font-size: 13px;
+  text-align: center;
+  line-height: 1.4rem;
+  background: #35564b;
+  padding: 14px 20px;
+}
+
+@media screen and (min-width:768px) {
+  .select__btn {
+    display: none;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 84px;
+  }
+
+  .nav__title {
+    margin-left: 30px;
+  }
+
+  .nav__select {
+    display: flex;
+    position: relative;
+    right: 0;
+    width: auto;
+    height: auto;
+    top: 0;
+    background: none;
+    margin: 0 10px;
+  }
+
+  .nav__select #active {
+    background: #ff7286;
+    color: white;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .nav__select a {
+    color: black;
+    margin: auto;
+    padding: 14px 24px;
+    margin-right: 12px;
+    text-align: center;
+    transition: background 0.15s;
+  }
+
+  .nav__select a:hover {
+    background: #ff7286;
+    color: white;
+    border-radius: 8px;
+    box-shadow: 1.4px 1.4px 5px 1.2px #8a8b8b7e;
+  }
+
+  .section__content {
+    width: 600px;
+    margin: 0 auto;
+  }
+  
+  .sectioc__title {
+    display: inline-block;
+    margin: 80px auto 20px; 
+    font-size: 24px;
+    font-weight: bold;
+    border-left: 10px solid #a3dea2;
+    padding-left: 10px;
+  }
+
+  .footer__top {
+    flex-direction: row;
+    justify-content: space-between;
+    height: 186px;
+    box-sizing: border-box;
+    padding: 45px 40px 0;
+  }
+
+  .footer__site-content {
+    margin-top: 0;
+  }
+  
+  .footer__site {
+
+    text-align: right;
+  }
+  
+}
