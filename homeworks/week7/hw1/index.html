@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="./style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <title>新拖延運動表單</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="sheet">
+        <h1 class="sheet__title">新拖延運動報名表單</h1>
+        <div class="sheet__desc">
+          <p>活動日期：2020/12/10 ~ 2020/12/11</p>
+          <p>活動地點：台北市大安區新生南路二段1號</p>
+        </div>
+        <p class="sheet__notice">* 必填</p>
+        <form class="question">
+          <div class="ques__block required hide__err">
+            <h3 class="ques__title">暱稱 </h3>
+            <div class="ques__input">
+              <input type="text" name="name" placeholder="您的回答" class="required__input" />
+            </div>
+            <p class="Warning__text">▲ 請輸入您的暱稱</p>
+          </div>
+          <div class="ques__block required hide__err">
+            <h3 class="ques__title">電子郵件 </h3>
+            <div class="ques__input">
+              <input type="email" name="email" placeholder="您的電子郵件" class="required__input" />
+            </div>
+            <p class="Warning__text">▲ 請輸入您的電子郵件</p>
+          </div>
+          <div class="ques__block required hide__err">
+            <h3 class="ques__title">手機號碼 </h3>
+            <div class="ques__input">
+              <input type="number" name="phone" placeholder="您的手機號碼" class="required__input" />
+            </div>
+            <p class="Warning__text">▲ 請輸入您的手機號碼</p>
+          </div>
+          <div class="ques__block required hide__err">
+            <h3 class="ques__title">報名類型 </h3>
+            <div class="ques__input__type">
+              <input type="radio" name="type" id="1" /><label for="1">躺在床上用想像力實作</label>
+              <br>
+              <input type="radio" name="type" id="2" /><label for="2">趴在地上滑手機找現成的</label>
+            </div>
+            <p class="Warning__text">▲ 請選擇您的報名類型</p>
+          </div>
+          <div class="ques__block required hide__err">
+            <h3 class="ques__title">怎麼知道這個活動的？ </h3>
+            <div class="ques__input">
+              <input type="text" name="referal" placeholder="您的回答" class="required__input" />
+            </div>
+            <p class="Warning__text">▲ 請輸入您的回答</p>
+          </div>
+          <div class="ques__block">
+            <h3 class="ques__title">其他</h3>
+            <div class="ques__title-desc">對活動的一些建議</div>
+            <div class="ques__input">
+              <input type="text" placeholder="您的回答" />
+            </div>
+          </div>
+          <section class="submit">
+            <input type="submit" />
+            <p class="alert__content">請勿透過表單送出您的密碼。</p>
+          </section>
+        </form>
+      </div>
+    </div>
+    <footer>
+      © 2020 © Copyright. All rights Reserved.
+    </footer>
+    <script src="./index.js"></script>
+  </body>
+</html>
