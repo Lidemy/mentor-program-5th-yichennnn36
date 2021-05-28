@@ -1,5 +1,16 @@
 body {
+  background: #747565;
+}
+
+.wrap {
+  max-width: 600px;
+  width: 80vw;
+  margin: 100px auto;
+  padding: 0 0 50px;
   background: #f8f8f3;
+  border-radius: 1%;
+  border-top-right-radius: 10%;
+  box-shadow: 8px 12px 1px 0 #4a4d4c;
 }
 
 .todo__title {
@@ -9,26 +20,25 @@ body {
   font-weight: bold;
   color: #B49275;
   font-family: 'Baloo Bhaina 2', cursive;
-  margin: 40px 30px 40px;
+  padding: 50px 0 0;
+  margin: 0px 30px;
   line-height: 5rem;
 }
 
 .todo__input {
-  text-align: left;
-  margin-left: 30px;
-  margin-bottom: 40px;
+  margin: 20px 40px 40px;
+  position: relative;
+  text-align: center;
 }
 
 .todo__input-text {
   font-size: 20px;
-  letter-spacing: 1.2px;
-  width: 70vw;
-  text-overflow: ellipsis;
+  width: auto;
   border: transparent;
   border-bottom: 4px dashed rgb(199, 204, 132);
   padding: 10px 10px;
-  margin-right: 10px;
   background: transparent;
+  letter-spacing: 1.2px;
   outline: transparent;
   transition: 0.4s ease-in-out;
 }
@@ -43,8 +53,11 @@ body {
   width: 30px;
   border: 2px solid #E6B93F;
   background: #E6B93F;
+  box-sizing: border-box;
   border-radius: 12%;
-  position: relative;
+  position: absolute;
+  right: 40px;
+  top: 7px;
   appearance: none;
   cursor: pointer;
   transition: 0.3s;
@@ -64,19 +77,12 @@ body {
 }
   
 .btn__add::before {
-  transform: translate(-50%, -50%) rotate(90deg);
+transform: translate(-50%, -50%) rotate(90deg);
 }
 
-.todo__list-item {
-  display: flex;
-  position: relative;
-  font-family: 'Poppins', sans-serif;
-  margin-bottom: 30px;
-}
-
-ul {
-  padding-inline-start: 0;
-  margin: 20px 40px;
+.todo__list {
+  margin: 0 72px;
+  padding-left: 0;
 }
 
 input[type="checkbox"] {
@@ -105,20 +111,26 @@ input[type="checkbox"]:checked::before {
   top: -15px;
 }
 
+.todo__list-item {
+  display: flex;
+  position: relative;
+  margin: 50px 0 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
 .list__text {
-  flex: 1;
   font-size: 28px;
   word-wrap: break-word;
+  width: 300px;
   line-height: 2.2rem;
   margin: 0;
   margin-left: 10px;
 }
 
 .list__edit-text {
-  width: 60%;
   background: rgb(199, 204, 132);
   padding: 10px 0 10px 5px;
-  border: 1px solid rgb(199, 204, 132);
+  border: 2px solid rgb(199, 204, 132);
   outline: transparent;
   border-radius: 5px;
   font-size: 28px;
@@ -132,42 +144,16 @@ input[type="checkbox"]:checked::before {
   text-decoration-color: #eeb71e;
 }
 
-.list__btn {
-  display: flex;
-  flex-direction: column-reverse;
-  align-items: center;
-  position: relative;
-}
-
-.btn__edit, .btn__finish {
-  height: 30px;
-  width: 60px;
-  background: #747565;
-  border: 0.2px solid #747565;
-  border-radius: 6px;
-  margin-top: 10px;
-  appearance: none;
-  color: white;
-  font-family: 'Poppins', sans-serif;
-  font-size: 18px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.btn__finish {
-  position: absolute;
-  left: 0;
-}
-
 .btn__del {
   height: 30px;
   width: 30px;
-  margin-left: 10px;
   border: 2px solid #747565;
   background: #747565;
   box-sizing: border-box;
   border-radius: 50%;
-  position: relative;
+  position: absolute;
+  right: 0;
+  top: 2px;
   appearance: none;
   cursor: pointer;
   transition: 0.3s;
@@ -193,6 +179,24 @@ input[type="checkbox"]:checked::before {
   transform: translate(-50%, -50%) rotate(-45deg);
 }
 
+.btn__edit, .btn__finish {
+  height: 30px;
+  width: 60px;
+  background: #747565;
+  border: 0.2px solid #747565;
+  box-sizing: border-box;
+  border-radius: 6px;
+  position: absolute;
+  right: 40px;
+  top: 2px;
+  appearance: none;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  cursor: pointer;
+  transition: translate 0.4s;
+}
+
 .btn__add:hover, .btn__del:hover, .btn__edit:hover {
   transform: translate(0, -5px);
 }
@@ -206,36 +210,8 @@ input[type="checkbox"]:checked::before {
   transform: translate(5px, -3px);
 }
 
-@media screen and (min-width:600px) {
-  body {
-    background: #747565;
-  }
-  .wrap {
-    max-width: 600px;
-    margin: 100px auto;
-    padding: 0 0 50px;
-    background: #f8f8f3;
-    border-radius: 1%;
-    border-top-right-radius: 10%;
-    box-shadow: 8px 12px 1px 0 #4a4d4c;
-  }
-  .todo__title {
-    padding-top: 50px;
-  }
-  .todo__input {
-    text-align: center;
-  }
+@media screen and (min-width:768px) {
   .todo__input-text {
-    width: 400px;
-  }
-  .list__btn {
-    flex-direction: row;
-    justify-content: center;
-  }
-  .btn__edit, .btn__finish {
-    margin: 0;
-  }
-  .btn__finish {
-    left: 0;
+    width: 340px;
   }
 }
