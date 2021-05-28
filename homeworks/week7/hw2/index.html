@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>咬一口廚房 Just A Bite!</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="reset.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <input type="checkbox" id="select__control">
+  <nav>
+    <h1 class="nav__title">
+      Just A Bite!
+    </h1>
+    <label for="select__control" class="select__btn">
+      <span>選單</span>
+    </label>
+    <div class="nav__select">
+      <a href="#">抽個大獎</a>
+      <a href="#">我要點餐</a>
+      <a href="#">查詢菜單</a>
+      <a href="#" id="active">常見問題</a>
+    </div>
+  </nav>
+
+  <section>
+    <div class="wrap">
+      <div class="section__content">
+        <h3 class="section__title">FAQ - 常見問題</h3>
+        <ul class="faq">
+          <li class="faq__item hide">
+            <div class="faq__item-mark">Q1：</div>
+            <div class="faq__item-content">
+              <h3 class="faq__item-title">如何辦理退貨？</h3>
+              <p class="faq__item-text">
+                退貨方式：
+                <br>
+                若有尺寸不合或未符期望，可選擇於七日鑑賞期內辦理部分或整筆退貨後再重新訂購。
+                <br>
+                七日鑑賞期計算為簽收隔日算起七日內，鑑賞期不為試用期，還請留意請保持商品全新狀態。超商為取件隔日算第一天。黑貓宅配為簽收隔日算第一天，不論是否為買家本人簽收（管理員／家人等）還請務必留意。
+                <br>
+                包裹完成取件後，系統需48小時內回傳取件資料，請您於收到包裹後(於七日鑑賞期內)，登入會員中心
+                後至訂單查詢內，產生『退貨』的選項即可申請退貨，不便之處敬請見諒！
+              </p>
+            </div>
+          </li>
+          <li class="faq__item hide">
+            <div class="faq__item-mark">Q2：</div>
+            <div class="faq__item-content">
+              <h3 class="faq__item-title">目前提供哪些付款方式？</h3>
+              <p class="faq__item-text">貨到付款/超商取貨付款/信用卡/銀聯卡</p>
+            </div>
+          </li>
+          <li class="faq__item hide">
+            <div class="faq__item-mark">Q3：</div>
+            <div class="faq__item-content">
+              <h3 class="faq__item-title">如何查詢目前訂單的處理情況？</h3>
+              <p class="faq__item-text">
+                請點選「會員登入」，輸入您的E-mail及密碼登入後，即可查詢訂單的處理狀態。
+                <br>
+                訂單可否做修改？
+                <br>
+                1.訂單成立後即無法增加﹑刪除或變更訂購明細及付款方式。
+                <br>
+                2.每筆訂單分開作業，運費及組合優惠皆不合併計算。
+                <br>
+                3.如需取消訂購，須於訂單狀態顯示『訂單處理中』，可自行申請取消再重新訂購。【步驟：登入會員→會員中心→訂單查詢→取消即可】
+              </p>
+            </div>
+          </li>
+          <li class="faq__item hide">
+            <div class="faq__item-mark">Q4：</div>
+            <div class="faq__item-content">
+              <h3 class="faq__item-title">如何加入會員？</h3>
+              <p class="faq__item-text">
+                首次購買請先完成E-mail帳號註冊或使用第三方帳號直接進行登入。
+              </p>
+            </div>
+          </li>
+          <li class="faq__item hide">
+            <div class="faq__item-mark">Q5：</div>
+            <div class="faq__item-content">
+              <h3 class="faq__item-title">會員使用功能？</h3>
+              <p class="faq__item-text">
+                會員中心： 個人資訊查詢／修改
+                <br>
+                訂單查詢： 查看訂單資訊／申請退貨
+                <br>
+                購物金帳戶： 查詢購物金／申請帳戶結清
+                <br>
+                慾望清單： 喜愛商品收藏
+                <br>
+                個人資訊修改： 點選「修改會員資料」即可。您可由此變更您登入的姓名、生日、手機號碼、E-mail、地址或變更您的登入密碼。
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer__top">
+      <p class="footer__site-content">
+        餐館地址：天上地下天堂路三分之一里六段520號
+        <br>
+        訂位專線：02-1314-5566
+        <br>
+        營業時間：週一〜週五 09:00~18:00 / 週六、週日、國定假日（含連假）休息
+        <br>
+        email：service@justabite.com.tw
+      </p>
+      <div class="footer__site">
+        <p class="footer__site-title">Just A Bite!</p>
+        <p class="footer__site-social">Facebook / Instagram / Youtube</p>
+      </div>
+    </div>
+    <div class="footer__bottom">Copyright © 2020 Just A Bite All Rights Reserved. 咬一口股份有限公司版權所有</div>
+  </footer>
+
+  <script>
+    document.querySelector('.faq').addEventListener('click', (e) => {
+      const ele = e.target.closest('.faq__item')
+      if (ele) ele.classList.toggle('hide'); //確保都有找到設定的條件，一開始沒判斷一直 log 出奇怪的東西
+      }
+    );
+  </script>
+
+</body>
+</html>
