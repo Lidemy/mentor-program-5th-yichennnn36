@@ -238,6 +238,10 @@ nav {
     padding-left: 10px;
   }
 
+  .faq {
+    margin: 20px auto 60px;
+  } 
+
   .footer__top {
     flex-direction: row;
     justify-content: space-between;

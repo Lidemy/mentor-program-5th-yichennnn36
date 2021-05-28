@@ -1,4 +1,4 @@
-/* eslint spaced-comment: off */
+/* eslint-disable */
 const inputText = document.querySelector('.todo__input-text');
 const addButton = document.querySelector('.btn__add');
 const todoList = document.querySelector('.todo__list');
@@ -40,7 +40,7 @@ inputText.addEventListener('keydown', (e) => {
 //event delegation
 //事件代理人，處理 刪除/編輯/點擊完成
 todoList.addEventListener('click', (e) => {
-  const { target } = e.target;
+  const target = e.target;
   const listItem = target.parentNode;
   const listText = listItem.querySelector('.list__text');
   const listTextEdit = listItem.querySelector('.list__edit-text');
