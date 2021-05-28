@@ -23,6 +23,7 @@ body {
   font-size: 20px;
   letter-spacing: 1.2px;
   width: 70vw;
+  overflow: scroll;
   text-overflow: ellipsis;
   border: transparent;
   border-bottom: 4px dashed rgb(199, 204, 132);
@@ -108,7 +109,7 @@ input[type="checkbox"]:checked::before {
 .list__text {
   flex: 1;
   font-size: 28px;
-  word-wrap: break-word;
+  word-wrap: break-all;
   line-height: 2.2rem;
   margin: 0;
   margin-left: 10px;
@@ -137,6 +138,7 @@ input[type="checkbox"]:checked::before {
   flex-direction: column-reverse;
   align-items: center;
   position: relative;
+  margin-left: 10px;
 }
 
 .btn__edit, .btn__finish {
@@ -211,7 +213,7 @@ input[type="checkbox"]:checked::before {
     background: #747565;
   }
   .wrap {
-    max-width: 600px;
+    max-width: 560px;
     margin: 100px auto;
     padding: 0 0 50px;
     background: #f8f8f3;
