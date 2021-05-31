@@ -1,6 +1,11 @@
+window.onload = function() {
+  document.querySelector('.todo__input-text').focus();
+};
+
 const inputText = document.querySelector('.todo__input-text');
 const addButton = document.querySelector('.btn__add');
 const todoList = document.querySelector('.todo__list');
+
 // 跳脫格式
 function escapeHtml(unsafe) {
   return unsafe
@@ -38,6 +43,21 @@ addButton.addEventListener('click', () => {
 inputText.addEventListener('keydown', (e) => {
   if (e.keyCode === 13) createItem(inputText.value);
 });
+
+// 游標挪至最後
+function moveEnd(obj) {
+  obj.focus();
+  const len = obj.value.length;
+  if (document.selection) {
+    const sel = obj.createTextRange();
+    sel.moveStart('character', len); // 設定開頭的位置
+    sel.collapse();
+    sel.select();
+  } else if (typeof obj.selectionStart === 'number' && typeof obj.selectionEnd === 'number') {
+    obj.selectionStart = obj.selectionEnd = len;
+  }
+}
+
 // event delegation
 // 事件代理人，處理 刪除/編輯/點擊完成
 todoList.addEventListener('click', (e) => {
@@ -55,7 +75,10 @@ todoList.addEventListener('click', (e) => {
   }
   // 編輯（這裡真的是搞死我，一開始完全搞不清楚怎麼寫，研究好久）
   if (e.target.classList.contains('btn__edit') || e.target.classList.contains('btn__finish')) {
-    for (const ele of [listText, listTextEdit, btnEdit, btnFinish]) ele.classList.toggle('hide');
+    for (const ele of [listText, listTextEdit, btnEdit, btnFinish]) {
+      ele.classList.toggle('hide');
+      moveEnd(listTextEdit);
+    }
     if (e.target.classList.contains('btn__finish')) {
       listText.innerText = listTextEdit.value;
     }

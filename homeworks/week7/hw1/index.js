@@ -5,9 +5,8 @@ document.querySelector('form').addEventListener('submit', (e) => {
 
   const inputs = document.querySelectorAll('.required__input');
   for (const input of inputs) {
-    if (input) {
-      res[input.name] = input.value;
-    } if (!input.value) {
+    if (input) res[input.name] = input.value;
+    if (!input.value) {
       input.closest('.required').classList.remove('hide__err');
       hasErr = true;
     } else {

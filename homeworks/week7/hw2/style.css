@@ -104,13 +104,13 @@ nav {
   overflow: hidden;  
   /* 又學到利用 height 搭配 overflow 的用法，原本用display:none，但完全不知道怎麼用特效.. */
   max-height: 450px;
-  transition: max-height 0.4s;
+  transition: max-height 0.4s ease-in;
   cursor: pointer;
 }
 
 .hide {
   max-height: 26px;
-  transition: max-height 0.4s;
+  transition: max-height 0.4s ease-out;
 }
 
 .faq__item-mark {
