@@ -145,9 +145,36 @@ nav {
   cursor: pointer;
 }
 
-.prize {
+.prize1 {
   margin: 80px 0 0;
-  background-image: url('./img/bg.jpg');
+  background-image: url('./img/flight-4315953_640.jpg');
+  height: 600px;
+  background-size: cover;
+  background-position: center center;
+  position: relative;
+}
+
+.prize2 {
+  margin: 80px 0 0;
+  background-image: url('./img/living-room-1872192_640.jpg');
+  height: 600px;
+  background-size: cover;
+  background-position: center center;
+  position: relative;
+}
+
+.prize3 {
+  margin: 80px 0 0;
+  background-image: url('./img/youtube-2617510_640.jpg');
+  height: 600px;
+  background-size: cover;
+  background-position: center center;
+  position: relative;
+}
+
+.prize0 {
+  margin: 80px 0 0;
+  background: black;
   height: 600px;
   background-size: cover;
   background-position: center center;
@@ -158,8 +185,9 @@ nav {
   font-size: 30px;
   text-align: center;
   font-family: MicrosoftJhengHei;
-  font-weight: 300;
+  font-weight: 450;
   margin-bottom: 40px;
+  color: white;
 }
 
 .prize__item {

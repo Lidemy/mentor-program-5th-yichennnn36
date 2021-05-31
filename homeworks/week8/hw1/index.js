@@ -2,9 +2,9 @@ const apiUrl = 'https://dvwhnbka7d.execute-api.us-east-1.amazonaws.com/default/l
 const errMessage = '系統不穩定，請再試一次！';
 
 // 印出中獎資訊
-function printData(str) {
+function printData(num, str) {
   const div = document.createElement('div');
-  div.classList.add('prize');
+  div.classList.add(`prize${num}`);
   div.innerHTML = `
     <div class="prize__item">
       <h3 class="prize__title">${str}</h3>
@@ -51,16 +51,16 @@ document.querySelector('.btn__draw').addEventListener('click', () => {
     document.querySelector('.draw').classList.toggle('hide');
     switch (data.prize) {
       case 'FIRST':
-        printData('恭喜你中頭獎了！日本東京來回雙人遊！');
+        printData(1, '恭喜你中頭獎了！日本東京來回雙人遊！');
         break;
       case 'SECOND':
-        printData('恭喜你中貳獎了！90 吋電視一台！');
+        printData(2, '恭喜你中貳獎了！90 吋電視一台！');
         break;
       case 'THIRD':
-        printData('恭喜你中參獎了！知名 YouTuber 簽名握手會入場券一張！');
+        printData(3, '恭喜你中參獎了！知名 YouTuber 簽名握手會入場券一張！');
         break;
       case 'NONE':
-        printData('銘謝惠顧');
+        printData(0, '銘謝惠顧');
         break;
     }
   });
