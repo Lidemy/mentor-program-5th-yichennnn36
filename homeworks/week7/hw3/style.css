@@ -21,6 +21,7 @@ body {
 
 .todo__input-text {
   font-size: 20px;
+  font-family: 'Poppins', sans-serif;
   letter-spacing: 1.2px;
   width: 70vw;
   overflow: scroll;
@@ -109,7 +110,7 @@ input[type="checkbox"]:checked::before {
 .list__text {
   flex: 1;
   font-size: 28px;
-  word-wrap: break-all;
+  word-break: break-all;
   line-height: 2.2rem;
   margin: 0;
   margin-left: 10px;
@@ -118,6 +119,7 @@ input[type="checkbox"]:checked::before {
 .list__edit-text {
   width: 60%;
   background: rgb(199, 204, 132);
+  font-family: 'Poppins', sans-serif;
   padding: 10px 0 10px 5px;
   border: 1px solid rgb(199, 204, 132);
   outline: transparent;
@@ -131,6 +133,7 @@ input[type="checkbox"]:checked::before {
 .done .list__text {
   text-decoration: line-through;
   text-decoration-color: #eeb71e;
+  font-family: 'Poppins', sans-serif;
 }
 
 .list__btn {
