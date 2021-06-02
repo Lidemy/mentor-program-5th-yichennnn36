@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Twitch Top Games</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="reset.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=Fredoka+One&family=Noto+Sans+TC&family=Rubik:wght@300;400&display=swap" rel="stylesheet">
+
+</head>
+<body>
+  <input type="checkbox" id="select__control">
+  <nav>
+    <h1 class="nav__title">Twitch Top Games</h1>
+    <label for="select__control" class="select__btn">
+      <span>選單</span>
+    </label>
+    <div class="nav__select">
+      <!-- 動態新增元素 -->
+    </div>
+  </nav>
+  <section>
+    <div class="wrap">
+      <h3 class="games__title">Loading...</h3>
+      <p class="games__desc">Top 20 popular live streams sorted by current viewers</p>
+      <div class="games">
+        <!-- 動態填充 -->
+      </div>
+    </div>
+  </section>
+  <div id="showmore_btn"><button>Show more...</button></div>
+  <footer class="footer">Copyright © YichenLiu Week8 Twitch API Homework</footer>
+  <script src="./index.js"></script>
+</body>
+
+</html>
