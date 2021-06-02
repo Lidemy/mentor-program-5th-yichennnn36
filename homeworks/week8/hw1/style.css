@@ -80,7 +80,7 @@ nav {
 
 .draw {
   margin: 80px 0 0;
-  background-image: url('./img/banner_2.jpg');
+  background: url('./img/banner_2.jpg');
   height: 600px;
   background-size: cover;
   background-position: center center;
@@ -146,7 +146,7 @@ nav {
 
 .prize1 {
   margin: 80px 0 0;
-  background-image: url('./img/flight-4315953_640.jpg');
+  background: url('./img/flight-4315953_640.jpg');
   height: 600px;
   background-size: cover;
   background-position: center center;
@@ -203,7 +203,7 @@ nav {
   flex-direction: column-reverse;
   background: #e8efee;
   height: 250px;
-  padding: 30px;
+  padding: 12px 30px;
 }
 
 .footer__site-content {

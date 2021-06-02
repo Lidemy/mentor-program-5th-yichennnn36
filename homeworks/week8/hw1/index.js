@@ -57,7 +57,7 @@ document.querySelector('.btn__draw').addEventListener('click', () => {
         printData(2, '恭喜你中貳獎了！90 吋電視一台！');
         break;
       case 'THIRD':
-        printData(3, '恭喜你中參獎了！知名 YouTuber 簽名握手會入場券一張！');
+        printData(3, '恭喜你中參獎了！知名 YouTuber 簽名握手會入場券一張，bang！');
         break;
       case 'NONE':
         printData(0, '銘謝惠顧');
