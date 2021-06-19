@@ -3,12 +3,12 @@ document.querySelector('.sheet').addEventListener('submit', (e) => {
   let hasErr = false;
   const res = {};
 
-  const eles = document.querySelectorAll('.ques__required');
-  for (const ele of eles) {
-    const input = ele.querySelector('input[type=text]');
-    const email = ele.querySelector('input[type=email]');
-    const phone = ele.querySelector('input[type=number]');
-    const radio = ele.querySelectorAll('input[type=radio]');
+  const elements = document.querySelectorAll('.ques__required');
+  for (const element of elements) {
+    const input = element.querySelector('input[type=text]');
+    const email = element.querySelector('input[type=email]');
+    const phone = element.querySelector('input[type=number]');
+    const radio = element.querySelectorAll('input[type=radio]');
     let isValid = true;
 
     if (input) {
@@ -23,7 +23,7 @@ document.querySelector('.sheet').addEventListener('submit', (e) => {
     } else if (radio.length) { // radio 一定會有內容（包括空陣列），使用radio.length來判斷
       isValid = [...radio].some((radio) => radio.checked); // 解構
       if (isValid) {
-        const temp = ele.querySelector('input[type=radio]:checked');
+        const temp = element.querySelector('input[type=radio]:checked');
         const type = temp.nextSibling.innerText;
         res[temp.name] = type;
       }
@@ -32,19 +32,19 @@ document.querySelector('.sheet').addEventListener('submit', (e) => {
     }
 
     if (!isValid) {
-      ele.querySelector('.warning__text').classList.remove('hide');
+      element.querySelector('.warning__text').classList.remove('hide');
       hasErr = true;
     } else {
-      ele.querySelector('.warning__text').classList.add('hide');
+      element.querySelector('.warning__text').classList.add('hide');
     }
     // 即時驗證，有 input 的話 -> ('.warning__text').classList.add('hide')
-    ele.addEventListener('input', () => {
-      const input = ele.querySelector('input');
-      if (!input.value) {
-        ele.querySelector('.warning__text').classList.remove('hide');
+    element.addEventListener('input', () => {
+      const ImmediateValue = element.querySelector('input');
+      if (!ImmediateValue.value) {
+        element.querySelector('.warning__text').classList.remove('hide');
         hasErr = true;
       } else {
-        ele.querySelector('.warning__text').classList.add('hide');
+        element.querySelector('.warning__text').classList.add('hide');
       }
     });
   }
