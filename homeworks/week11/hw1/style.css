@@ -1,0 +1,293 @@
+* {
+  font-family: 'Nunito', sans-serif;
+}
+
+body {
+  background: #f7f7f7;
+  overscroll-behavior: none;
+}
+
+.warning {
+  background: pink;
+  color: rgb(163, 63, 63);
+  padding: 12px 8px;
+  text-align: center;
+  font-weight: bold;
+  line-height: 1.2rem;
+  font-family: sans-serif;
+}
+
+.board {
+  max-width: 768px;
+  background: white;
+  border-radius: 8px;
+  margin: 0 auto;
+  padding: 20px 30px;
+  box-sizing: border-box;
+}
+
+.board__btn {
+  margin: 40px 0 50px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.board__btn a {
+  text-decoration: none;
+  border: 1px solid rgb(198, 210, 236);
+  border-radius: 6px;
+  background: white;
+  color: black;
+  padding: 10px 24px;
+  font-size: 14px;
+  margin-right: 10px;
+  transition: background 0.3s;
+}
+
+.board__btn a:hover, .submit__btn:hover {
+  background: rgb(198, 210, 236);
+  color: white;
+}
+
+.board__btn-backstage a {
+  background:rgb(198, 210, 236);
+}
+
+.board__title {
+  font-size: 34px;
+  font-weight: bolder;
+  margin: 60px 0 30px;
+}
+
+.name__input {
+  margin: 20px 0;
+}
+
+.name__input span {
+  margin-right: 10px;
+}
+
+.nickname__input {
+  font-size: 18px;
+  font-weight: bold;
+  color: rgb(79, 94, 179);
+}
+
+.nickname__update-form {
+  position: relative;
+}
+
+.nickname__update {
+  border: 0 none;
+  border-bottom: 1px solid rgb(198, 210, 236);
+  background: white;
+  color: rgb(116, 193, 196);
+  font-size: 18px;
+  outline: none;
+  position: absolute;
+  top: 67px;
+  left: 54px;
+}
+
+.nickname__update-form .submit__btn {
+  position: absolute;
+  top: -78px;
+  left: 92px;
+}
+
+.info__input {
+  margin: 18px 0;
+}
+
+.info__input input {
+  border: transparent;
+  border-bottom: 2px solid rgb(198, 210, 236);
+  width: 176px;
+  height: 24px;
+}
+
+.comments__input {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 20px 0;
+}
+
+.comments__input textarea {
+  border: 1px solid rgb(198, 210, 236);
+  border-radius: 6px;
+  background: white;
+  font-size: 15px;
+  line-height: 1.4rem;
+  width: 80%;
+  padding: 8px 10px;
+}
+
+.submit__btn {
+  border: 1px solid rgb(198, 210, 236);
+  border-radius: 6px;
+  background: white;
+  color: black;
+  padding: 10px 24px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.input__warning {
+  font-size: 18px;
+  font-weight: bold;
+  color: rgb(163, 63, 63);
+}
+
+.board__hr {
+  width: 100%;
+  height: 2px;
+  background: rgb(214, 216, 219);
+  margin: 40px auto;
+}
+
+.comments__block {
+  display: flex;
+  align-items: flex-start;
+  margin: 50px auto;
+}
+
+.comments__avatar {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  background: rgb(198, 210, 236);
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.content__info {
+  margin-bottom: 12px;
+}
+
+.function_btn {
+  display: inline;
+  margin-left: 10px;
+}
+
+.function_btn a {
+  color: rgb(171, 183, 207);
+  text-decoration: none;
+}
+.function_btn span {
+  font-size: 24px;
+  margin-left: 3px;
+  vertical-align: text-bottom;
+}
+.content__author {
+  word-break: break-all;
+  font-weight: bold;
+  color: rgb(79, 94, 179);
+}
+
+.content__date {
+  font-size: 14px;
+  color: rgb(145, 147, 148);
+}
+
+.comments__content p {
+  font-size: 15px;
+  margin-top: 10px;
+  line-height: 1.2rem;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+.error__msg {
+  color: rgb(199, 53, 53);
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.success__msg {
+  color: rgb(106, 161, 245);
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.hide {
+  display: none;
+}
+
+.pagination {
+  text-align: center;
+  line-height: 2.8rem;
+}
+
+.pagination__btn a {
+  color: rgb(70, 91, 141);
+  margin: 0 10px;
+}
+
+.pagination a:hover {
+  color: rgb(183, 223, 39);
+}
+
+/* 後台 CSS */
+.stage__board {
+  max-width: 1200px;
+  background: white;
+  border-radius: 8px;
+  margin: 0 auto;
+  padding: 20px 30px;
+  box-sizing: border-box;
+}
+
+.section__table {
+  width: 100%;
+  margin: 20px auto;
+}
+
+.backstage__table {
+  border: 1px solid rgb(198, 210, 236);
+  width: 100%;
+  table-layout: auto;
+}
+
+tr {
+  text-align: center;
+}
+
+tr th {
+  padding: 12px 0;
+  font-weight: bold;
+}
+
+tr td {
+  padding: 10px 0;
+}
+
+table thead {
+  background-color: rgb(198, 210, 236);
+  color: white;
+}
+
+table tbody tr {
+  border-bottom: 1px solid rgb(171, 172, 175);
+}
+
+table td {
+  border: 1px solid rgb(171, 172, 175);
+}
+
+.role__fix-btn {
+  border: 1px solid rgb(198, 210, 236);
+  border-radius: 2px;
+  background: rgb(198, 210, 236);
+  color: black;
+  padding: 4px 6px;
+  font-size: 12px;
+  margin-left: 6px;
+}
+
+@media screen and (min-width:768px) {
+  .board {
+    margin: 40px auto;
+  }
+}
