@@ -14,6 +14,9 @@
       header('Location:index.php');
       die();
     }
+  } else {
+    header('Location:index.php');
+    die();
   }
   $page = 1;
   if (!empty($_GET['page'])) {
