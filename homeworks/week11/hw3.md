@@ -64,13 +64,51 @@ EX：`<h1>test</h1>`、`<script>window.location("http://...")</script>`
 ### 防範方法：escape，跳脫
 `htmlspecialchars($str, ENT_QUOTES, 'utf-8')`
 替換需要進行 HTML 編碼的字元（< 、 > 、 & 、 " 、 '），再把資料
+
 ## 請說明 CSRF 的攻擊原理以及防範方法
+### CSRF（Cross Site Request Forgery）跨站請求偽造
+在不同的 domain 底下偽造出「使用者本人發出的 request」。藉由瀏覽器的機制來製造攻擊機會，欺騙瀏覽器，讓瀏覽器以為某些行為是使用者本人的操作行為，只要發送 request 給某個網站，就會把關聯的 cookie 一起帶上去。
 
+假設某網站有一段程式碼如下：
+```html
+<img src='https://small-min.blog.com/delete?id=3' width='0' height='0' />
+<a href='/test'>開始測驗</a>
+```
+開啟頁面的同時，在不知不覺的情況下發送刪除的 request。
 
+### 防範方法：
+常見的防禦方法：
+* 檢查 request header referer
+  此欄位代表是從哪個地方來的，不合法的 domain 會直接 reject，但缺點是某些瀏覽器可能不會帶 referer 或是使用者關閉自動帶 referer 的功能，所以解法並不完善。
+
+* 加上圖形驗證碼、簡訊驗證等等
+  多加一層防護，在付款或轉戰的情況下很實用，但如果只是要單純刪掉文章而使用，可能造成使用者體驗不佳，
+
+* 加上 CSRF Token
+  < 產生＆儲存 token 都是 Server >
+  舉例來說，我們在表單中加入一個 hidden 的欄位，叫做 `csrftoken`，值由 Server 隨機產生，並存在 server 的 session 中，當表單送出時，server 會比對 `csrftoken` 與自己存的是否一樣，是的話代表確實是由本人發出的 request，而攻擊者並不知道 `csrftoken` 的值是什麼，所以無法進行攻擊。
+
+* Double Submit Cookie
+  < 產生由 Server、儲存由 Client >
+  與上述類似，由 server 產生一組隨機的 token 並加在 form 上，但不同的點在於 server 不需要儲存東西（不需要把值寫在 session），同時讓 client side 設定叫 csrftoken 的 cookie，值也是同一組 token： `Set-Cookie: csrftoken=xxxxxxxxx`，藉由此區分出這個 request 是不是從同樣的 domain 來的，但攻擊者如果掌握了你底下任何一個子網域，就可以幫你來寫 cookie，並且順利攻擊了。
+
+* Client 端生成的 Double Submit Cookie
+  < 產生＆儲存 token 都是 Client >
+  SPA(單頁應用程式，網頁不需跳轉就可以達到基本的 CRUD 功能) 在拿取 `csrftoken` 會有困難，所以可以改成 Client 端生成，此 cookie 只是要確保攻擊者無法取得、沒有包含任何敏感資訊，所以不避擔心安全性考量。
+
+* 瀏覽器端的防禦：SameSite cookie
+  針對 Cookie 的一種安全機制，以下取自 MDN
+  ```
+  The SameSite attribute of the Set-Cookie HTTP response header allows you to declare if your cookie should be restricted to a first-party or same-site context
+  ```
+  可以利用 `Set-Cookie: session_id=ewfewjf23o1; SameSite` 來啟用，分為兩種模式：Strict（預設） 、Lax
 
 ## 資料參考
 * [[資訊安全] 密碼存明碼，怎麼不直接去裸奔算了？淺談 Hash , 用雜湊保護密碼](https://reurl.cc/W3NYp5)
 * [身為 Web 工程師，你一定要知道的幾個 Web 資訊安全議題](https://reurl.cc/0jdbVM)
 * [[2018 iThome 鐵人賽] Day 6: 加密和雜湊有什麼不一樣？](https://ithelp.ithome.com.tw/articles/10193762)
 * [[Security] 雜湊不是加密，雜湊不是加密，雜湊不是加密。小朱® 的技術隨手寫](https://dotblogs.com.tw/regionbbs/2017/09/21/hashing_is_not_encryption)
+* [[第十二週] 資訊安全 - 常見攻擊：CSRF
+CSRF 原理 - Yakim shu](https://yakimhsu.com/project/project_w12_Info_Security-CSRF.html)
+* [讓我們來談談 CSRF](https://blog.huli.tw/2017/03/12/csrf-introduction/)
 
