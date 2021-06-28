@@ -15,6 +15,7 @@
     $articles_data = get_data_from_articles('id', $id);
   } else {
     header('Location: backstage.php');
+    die();
   }
   $stmt = $conn->prepare("UPDATE yichen_blog_articles SET is_deleted = 1 WHERE id = ?");
   $stmt->bind_param('i', $id);

@@ -9,6 +9,7 @@
 
   if (!$user_data) {
     header('Location: login.php?errCode=wronginfo');
+    die();
   } else {
     $hash_password = escape($user_data['password']);
   }
