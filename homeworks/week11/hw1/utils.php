@@ -33,7 +33,10 @@
       die('$conn->error');
     }
     $result = $stmt->get_result();
-    while($row = $result->fetch_assoc()) {
+    $row = $result->fetch_assoc();
+    if (!$row) {
+      die('有地方出錯了！請重新操作');
+    } else {
       return $row;
     }
   }
@@ -54,7 +57,10 @@
       die('$conn->error');
     }
     $result = $stmt->get_result();
-    while($row = $result->fetch_assoc()) {
+    $row = $result->fetch_assoc();
+    if (!$row) {
+      die('有地方出錯了！請重新操作');
+    } else {
       return $row;
     }
   }
