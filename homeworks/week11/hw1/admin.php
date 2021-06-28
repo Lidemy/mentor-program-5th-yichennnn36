@@ -10,7 +10,10 @@
     $username = $_SESSION['username'];
     $user_data = get_data_from_users($username);
     $comment_data = get_data_from_comments('username', $username);
-    if (!hasPermission($user_data, 'manage', $comment_data)) header('Location:index.php');
+    if (!hasPermission($user_data, 'manage', $comment_data)) {
+      header('Location:index.php');
+      die();
+    }
   }
   $page = 1;
   if (!empty($_GET['page'])) {

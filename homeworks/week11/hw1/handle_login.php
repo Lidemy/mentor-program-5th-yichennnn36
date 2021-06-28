@@ -9,6 +9,7 @@
   $user_data = get_data_from_users($username);
   if (!$user_data) {
     header('Location: login.php?errCode=wronginfo');
+    die();
   } else {
     $hash_password = $user_data['password'];
   }

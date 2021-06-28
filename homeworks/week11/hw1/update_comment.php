@@ -9,7 +9,10 @@
     $username = $_SESSION['username'];
     $user_data = get_data_from_users($username);
   }
-  if (empty($_GET['id'])) header('Location: index.php');
+  if (empty($_GET['id'])) {
+    header('Location: index.php');
+    die();
+  }
   $id = escape($_GET['id']);
   $comment_data = get_data_from_comments('id', $id);
 ?>
