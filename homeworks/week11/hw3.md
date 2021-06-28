@@ -63,7 +63,7 @@ EX：`<h1>test</h1>`、`<script>window.location("http://...")</script>`
 
 ### 防範方法：escape，跳脫
 `htmlspecialchars($str, ENT_QUOTES, 'utf-8')`
-替換需要進行 HTML 編碼的字元（< 、 > 、 & 、 " 、 '），再把資料
+替換需要進行 HTML 編碼的字元（< 、 > 、 & 、 " 、 '），可以的話將全部輸出資料庫內容的地方都跳脫會比較好。
 
 ## 請說明 CSRF 的攻擊原理以及防範方法
 ### CSRF（Cross Site Request Forgery）跨站請求偽造
