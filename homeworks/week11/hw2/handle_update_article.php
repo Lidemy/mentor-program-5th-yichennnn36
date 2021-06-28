@@ -3,16 +3,17 @@
   require_once('conn.php');
   require_once('utils.php');
 
-  $username = $_SESSION['username'];
   $id = $_POST['id'];
   $title = $_POST['article__title'];
   $category = $_POST['category'];
   $content = $_POST['content'];
 
-  // 管理權權限檢查
-  if (!($username === 'admin123')) {
-    header("Location: index.php");
+  // 管理權限 檢查
+  if (empty($_SESSION['username'])) {
+    header('Location: index.php');
     die();
+  } else {
+    $username = $_SESSION['username'];
   }
   // 輸入內容檢查
   if (!$title || $category === 'not-selected'|| !$content) {

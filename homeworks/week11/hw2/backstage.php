@@ -3,11 +3,12 @@
   require_once('conn.php');
   require_once('utils.php');
 
-  $username = $_SESSION['username'];
   // 管理權限 檢查
   if (empty($_SESSION['username'])) {
     header('Location: index.php');
     die();
+  } else {
+    $username = $_SESSION['username'];
   }
   $stmt = $conn->prepare("SELECT * FROM yichen_blog_articles WHERE is_deleted is NULL ORDER BY id DESC");
   $stmt->execute();

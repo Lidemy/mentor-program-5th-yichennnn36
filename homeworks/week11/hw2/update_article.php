@@ -3,11 +3,12 @@
   require_once('conn.php');
   require_once('utils.php');
 
-  $username = $_SESSION['username'];
-  // 管理權權限檢查
-  if (!($username === 'admin123')) {
+  // 管理權限 檢查
+  if (empty($_SESSION['username'])) {
     header('Location: index.php');
     die();
+  } else {
+    $username = $_SESSION['username'];
   }
   $id = NULL;
   if (!empty($_GET['id'])) {
