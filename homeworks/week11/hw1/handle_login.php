@@ -3,8 +3,8 @@
   require_once('conn.php');
   require_once('utils.php');
 
-  $username = escape($_POST['username']);
-  $password = escape($_POST['password']);
+  $username = $_POST['username'];
+  $password = $_POST['password'];
 
   $user_data = get_data_from_users($username);
   if (!$user_data) {

@@ -2,10 +2,10 @@
   require_once('conn.php');
   require_once('utils.php');
   
-  $nickname = escape($_POST['nickname']);
-  $username = escape($_POST['username']);
-  $password = escape($_POST['password']);
-  $confirm_password = escape($_POST['confirm-password']);
+  $nickname = $_POST['nickname'];
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+  $confirm_password = $_POST['confirm-password'];
 
   // function 判斷是否符合 6-15碼 英文字母或數字
   function is_valid_pass($str) {
