@@ -34,9 +34,6 @@
     }
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
-    if (!$row) {
-      die('有地方出錯了！請重新操作');
-    }
     return $row;
   }
   // 抓 commments table 資料，分成 WHERE id=?/username=?
@@ -57,9 +54,6 @@
     }
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
-    if (!$row) {
-      die('有地方出錯了！請重新操作');
-    }
     return $row;
   }
   // 判斷有無權限，$action 有 manage後台/create留言/update修改編輯
