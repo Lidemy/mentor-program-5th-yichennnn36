@@ -36,9 +36,8 @@
     $row = $result->fetch_assoc();
     if (!$row) {
       die('有地方出錯了！請重新操作');
-    } else {
-      return $row;
     }
+    return $row;
   }
   // 抓 commments table 資料，分成 WHERE id=?/username=?
   function get_data_from_comments($row_name, $value) {
@@ -60,9 +59,8 @@
     $row = $result->fetch_assoc();
     if (!$row) {
       die('有地方出錯了！請重新操作');
-    } else {
-      return $row;
     }
+    return $row;
   }
   // 判斷有無權限，$action 有 manage後台/create留言/update修改編輯
   function hasPermission($user_data, $action, $comment_data) {
