@@ -76,9 +76,8 @@
   </main>
   <script>
     // 讓下拉選單存好原本的分類
-    const category = document.querySelectorAll('select option');
-    const selectedCategory = category[category.length-1].dataset.value;
-    document.querySelector(`option[value=${selectedCategory}]`).setAttribute('selected', '');
+    const category = document.querySelector('option[value=hidden]').getAttribute('data-value');
+    document.querySelector(`option[value=${category}]`).setAttribute('selected', '');
     
     // 游標挪最後
     function setFocus(obj) {
