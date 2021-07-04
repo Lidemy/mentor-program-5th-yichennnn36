@@ -99,6 +99,13 @@ sendRequest(siteKey, cursor, (comments) => {
 // 輸入事件監聽
 $('.add-comments-form').submit((e) => {
   e.preventDefault();
+  const button = $(e.target).find('button[type=submit]');
+  // 讓按鈕在送出後禁用一秒，避免使用者連點
+  button.attr('disabled', true);
+  setTimeout(() => {
+    button.removeAttr('disabled');
+  }, 1000);
+
   addComment(siteKey, (data) => {
     // 清空輸入框
     $('input[name=nickname]').val('');
