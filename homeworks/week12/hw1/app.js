@@ -68,7 +68,7 @@ function addComment(siteKey, callback) {
     data: inputComment,
     success: (data) => {
       if (!data.ok) {
-        alert('請輸入留言');
+        alert('請完整輸入內容後新增！');
         console.log('Error: ', data.message);
       }
       callback(data);
