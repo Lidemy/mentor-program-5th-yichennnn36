@@ -1,27 +1,27 @@
 <?php
   require_once('conn.php');
   // 建立 array 存取錯誤訊息、提示訊息
-  $get_msg=array(
-    $err_code=array(
-      'emptycontent' => '請輸入內容！',
-      'emptynickname' => '暱稱不能為空！',
-      'emptyinput' => '資料不齊全，請重新輸入！',
-      'wrongpassword' => '兩次密碼輸入不同，請重新輸入！',
-      'invalidusername' => '帳號不符合規定，請重新輸入！',
-      'invalidpassword' => '密碼不符合規定，請重新輸入！',
-      'wronginfo' => '帳號或密碼錯誤，請重新輸入！',
-      'emptyrole' => '請選擇修改權限',
+  $msg = array(
+    'err_msg' => array(
+      'empty_content' => '請輸入內容！',
+      'empty_nickname' => '暱稱不能為空！',
+      'empty_input' => '資料不齊全，請重新輸入！',
+      'wrong_password' => '兩次密碼輸入不同，請重新輸入！',
+      'invalid_username' => '帳號不符合規定，請重新輸入！',
+      'invalid_password' => '密碼不符合規定，請重新輸入！',
+      'wrong_info' => '帳號或密碼錯誤，請重新輸入！',
+      'empty_role' => '請選擇修改權限',
       1062 => '帳號已被註冊，請重新輸入！',
     ),
-    $msg=array(
-      'registersuccess' => '註冊成功，請再次登入！',
-      'updaterole' => '已修改權限！',
+    'success_msg' => array(
+      'register_success' => '註冊成功，請再次登入！',
+      'update_role' => '已修改權限！',
     )
   );
   // set 錯誤或提示訊息
-  function set_msg($array, $code) {
-    if (!array_key_exists($code, $array)) die('有地方出錯了！請重新操作');
-    return $array[$code];
+  function set_msg($array, $msg) {
+    if (!array_key_exists($msg, $array)) die('有地方出錯了！請重新操作');
+    return $array[$msg];
   }
 
   function get_data_from_users($username) {

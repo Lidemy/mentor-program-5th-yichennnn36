@@ -12,12 +12,11 @@
   if (empty($_SESSION['username'])) {
     header('Location: index.php');
     die();
-  } else {
-    $username = $_SESSION['username'];
   }
+  $username = $_SESSION['username'];
   // 輸入內容檢查
   if (!$title || $category === 'not-selected'|| !$content) {
-    header('Location: update_article.php?errCode=emptyinput&id=' . $id);
+    header('Location: update_article.php?errMsg=empty_input&id=' . $id);
     die();
   }
   $stmt = $conn->prepare(
@@ -29,5 +28,5 @@
   if (!$result) {
     die($conn->error);
   }
-  header('Location: backstage.php?msg=updatesuccess');
+  header('Location: backstage.php?successMsg=update_success');
 ?>

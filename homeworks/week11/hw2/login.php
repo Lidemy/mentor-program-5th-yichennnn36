@@ -34,9 +34,9 @@
     <h2 class="site__title">Log in</h2>
     <form method="POST" action="handle_login.php" class="login__form">
       <?php 
-        if (!empty($_GET['errCode'])) {
-          $code = escape($_GET['errCode']);
-          echo '<h3 class="error__msg">' . set_msg($get_msg[0], $code) . '</h3>';
+        if (!empty($_GET['errMsg'])) {
+          $err_msg = escape($_GET['errMsg']);
+          echo '<h3 class="error__msg">' . set_msg($msg['err_msg'], $err_msg) . '</h3>';
         }
       ?>
       <div class="login__input">

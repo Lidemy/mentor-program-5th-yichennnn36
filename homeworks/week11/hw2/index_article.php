@@ -3,14 +3,15 @@
   require_once('conn.php');
   require_once('utils.php');
 
-  $id = NULL;
-  if (!empty($_GET['id'])) {
-    $id = escape($_GET['id']);
-  } else {
+  if (empty($_GET['id'])) {
     header('Location: index.php');
     die();
   }
+  $id = escape($_GET['id']);
   $articles_data = get_data_from_articles('id', $id);
+  if (!$articles_data) {
+    die('有地方出錯了！請重新操作');
+  }
 ?>
 <!DOCTYPE html>
 <html>

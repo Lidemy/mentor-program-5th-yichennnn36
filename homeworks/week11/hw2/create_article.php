@@ -7,9 +7,8 @@
   if (empty($_SESSION['username'])) {
     header('Location: index.php');
     die();
-  } else {
-    $username = $_SESSION['username'];
   }
+  $username = $_SESSION['username'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,9 +40,9 @@
     <div class="backstage__title">新增文章</div>
     <form method="POST" action="handle_create_article.php" class="add__article-block">
       <?php
-        if (!empty($_GET['errCode'])) {
-          $code = escape($_GET['errCode']);
-          echo '<h3 class="error__msg">' . set_msg($get_msg[0], $code) . '</h3>';
+        if (!empty($_GET['errMsg'])) {
+          $err_msg = escape($_GET['errMsg']);
+          echo '<h3 class="error__msg">' . set_msg($msg['err_msg'], $err_msg) . '</h3>';
         }
       ?>
       <h3 class="add__article-title">發表文章：</h3>

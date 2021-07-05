@@ -15,6 +15,9 @@
   }
   $id = escape($_GET['id']);
   $comment_data = get_data_from_comments('id', $id);
+  if (!$comment_data) {
+    die('有地方出錯了！請重新操作');
+  }
 ?>
 
 <!DOCTYPE html>
@@ -38,9 +41,9 @@
     ?>
       <form method="POST" action="handle_update_comment.php">
         <?php 
-          if (!empty($_GET['errCode'])) {
-            $code = escape($_GET['errCode']);
-            echo '<h3 class="error__msg">' . set_msg($get_msg[0], $code) . '</h3>';
+          if (!empty($_GET['errMsg'])) {
+            $err_msg = escape($_GET['errMsg']);
+            echo '<h3 class="error__msg">' . set_msg($msg['err_msg'], $err_msg) . '</h3>';
           }
         ?>
         <div class="comments__input">

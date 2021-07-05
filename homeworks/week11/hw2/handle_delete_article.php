@@ -7,15 +7,16 @@
   if (empty($_SESSION['username'])) {
     header('Location: index.php');
     die();
-  } else {
-    $username = $_SESSION['username'];
   }
-  if (!empty($_GET['id'])) {
-    $id = escape($_GET['id']);
-    $articles_data = get_data_from_articles('id', $id);
-  } else {
+  if (empty($_GET['id'])) {
     header('Location: backstage.php');
     die();
+  }
+  $id = escape($_GET['id']);
+  $username = $_SESSION['username'];
+  $articles_data = get_data_from_articles('id', $id);
+  if (!$articles_data) {
+    die('有地方出錯了！請重新操作');
   }
   $stmt = $conn->prepare("UPDATE yichen_blog_articles SET is_deleted = 1 WHERE id = ?");
   $stmt->bind_param('i', $id);

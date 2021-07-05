@@ -8,7 +8,9 @@
   $id = escape($_GET['id']);
 
   $comment_data = get_data_from_comments('id', $id);
-
+  if (!$comment_data) {
+    die('有地方出錯了！請重新操作');
+  }
   if (hasPermission($user_data, 'update', $comment_data)) {
     $stmt = $conn->prepare('UPDATE yichen_comments SET is_deleted=1 WHERE id=?');
     $stmt->bind_param('i', $id);

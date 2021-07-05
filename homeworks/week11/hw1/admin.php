@@ -18,6 +18,7 @@
     header('Location:index.php');
     die();
   }
+  
   $page = 1;
   if (!empty($_GET['page'])) {
     $page = intval($_GET['page']);
@@ -56,15 +57,15 @@
       </div>
     </div>
     <?php 
-      if (!empty($_GET['msg'])) {
-        $msg = escape($_GET['msg']);
+      if (!empty($_GET['successMsg'])) {
+        $success_msg = escape($_GET['successMsg']);
         $id = escape($_GET['id']);
-        echo '<h3 class="success__msg"># ID:' . $id . ' ' . set_msg($get_msg[1], $msg) . '</h3>';
+        echo '<h3 class="success__msg"># ID:' . $id . ' ' . set_msg($msg['success_msg'], $success_msg) . '</h3>';
       }
-      if (!empty($_GET['errCode'])) {
-        $code = escape($_GET['errCode']);
+      if (!empty($_GET['errMsg'])) {
+        $err_msg = escape($_GET['errMsg']);
         $id = escape($_GET['id']);
-        echo '<h3 class="error__msg"># ID:' . $id . ' ' . set_msg($get_msg[0], $code) . '</h3>';
+        echo '<h3 class="error__msg"># ID:' . $id . ' ' . set_msg($msg['err_msg'], $err_msg) . '</h3>';
       }
     ?>
     <section class="section__table">

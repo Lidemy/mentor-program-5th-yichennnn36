@@ -4,7 +4,7 @@
   require_once('utils.php');
 
   if (empty($_POST['content'])) {
-    header('Location: update_comment.php?errCode=emptycontent&id=' . escape($_POST['id']));
+    header('Location: update_comment.php?errMsg=empty_content&id=' . escape($_POST['id']));
     die();
   }
   $username = $_SESSION['username'];

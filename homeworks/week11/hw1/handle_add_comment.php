@@ -7,7 +7,7 @@
   $content = $_POST['content'];
 
   if (!$content) {
-    header('Location: index.php?errCode=emptycontent');
+    header('Location: index.php?errMsg=empty_content');
     die();
   }
   $stmt = $conn->prepare('INSERT INTO yichen_comments(username, content) VALUES(?, ?)');

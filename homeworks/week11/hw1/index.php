@@ -11,8 +11,8 @@
     $username = $_SESSION['username'];
     $user_data = get_data_from_users($username);
     $comment_data = get_data_from_comments('username', $username);
-    $role = escape($user_data['role']);
-    $nickname = escape($user_data['nickname']);
+    $role = $user_data['role'];
+    $nickname = $user_data['nickname'];
   }
   
   $page = 1;
@@ -84,7 +84,7 @@
     ?>
       <div class="name__input">
         <span>Hello!</span>
-        <span class="nickname__input"><?php echo $nickname ?></span>
+        <span class="nickname__input"><?php echo escape($nickname); ?></span>
       </div>
     <?php } ?>
     <?php 
@@ -92,9 +92,9 @@
     ?>
     <form method="POST" action="handle_add_comment.php">
     <?php 
-      if (!empty($_GET['errCode'])) {
-        $code = escape($_GET['errCode']);
-        echo '<h3 class="error__msg">' . set_msg($get_msg[0], $code) . '</h3>';
+      if (!empty($_GET['errMsg'])) {
+        $err_msg = escape($_GET['errMsg']);
+        echo '<h3 class="error__msg">' . set_msg($msg['err_msg'], $err_msg) . '</h3>';
       }
     ?>
       <div class="comments__input">
@@ -102,7 +102,7 @@
         <button class="submit__btn">送出</button>
       </div>
     </form>
-    <?php } else if ($role === 'SUSPENDED') { ?>
+    <?php } else if (escape($role) === 'SUSPENDED') { ?>
       <h3 class="input__warning">/ 你沒有發佈留言的權限 /</h3>
     <?php } else { ?>
       <h3 class="input__warning">/ 請登入發布留言 /</h3>
@@ -165,17 +165,21 @@
     </div>
   </main>
   <script>
-    const nickname = document.querySelector('.nickname__input').innerText;
+    if (document.querySelector('.nickname__input')) {
+      const nickname = document.querySelector('.nickname__input').innerText;
+    }
     const inputUpdate = document.querySelector('form [name=nickname__update]');
     const btnUpdateDone = document.querySelector('.nickname__update-form button');
     const btnUpdate = document.querySelector('.board__btn [name=update__btn]');
 
-    btnUpdate.addEventListener('click', (e) => {
-      inputUpdate.classList.toggle('hide');
-      btnUpdateDone.classList.toggle('hide');
-      inputUpdate.setAttribute('value', nickname);
-      setFocus(inputUpdate);
-    });
+    if (btnUpdate) {
+      btnUpdate.addEventListener('click', (e) => {
+        inputUpdate.classList.toggle('hide');
+        btnUpdateDone.classList.toggle('hide');
+        inputUpdate.setAttribute('value', nickname);
+        setFocus(inputUpdate);
+      });
+    }
 
     // 游標挪至 input 最後一位
     function setFocus(obj) {

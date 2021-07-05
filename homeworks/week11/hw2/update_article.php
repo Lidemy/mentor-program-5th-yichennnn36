@@ -7,17 +7,17 @@
   if (empty($_SESSION['username'])) {
     header('Location: index.php');
     die();
-  } else {
-    $username = $_SESSION['username'];
   }
-  $id = NULL;
-  if (!empty($_GET['id'])) {
-    $id = escape($_GET['id']);
-  } else {
+  if (empty($_GET['id'])) {
     header('Location: backstage.php');
     die();
   }
+  $username = $_SESSION['username'];
+  $id = escape($_GET['id']);
   $articles_data = get_data_from_articles('id', $id);
+  if (!$articles_data) {
+    die('有地方出錯了！請重新操作');
+  }
 ?>
 <!DOCTYPE html>
 <html>
@@ -48,9 +48,9 @@
     <div class="backstage__title">新增文章</div>
     <form method="POST" action="handle_update_article.php" class="add__article-block">
       <?php
-        if (!empty($_GET['errCode'])) {
-          $code = escape($_GET['errCode']);
-          echo '<h3 class="error__msg">' . set_msg($get_msg[0], $code) . '</h3>';
+        if (!empty($_GET['errMsg'])) {
+          $err_msg = escape($_GET['errMsg']);
+          echo '<h3 class="error__msg">' . set_msg($msg['err_msg'], $err_msg) . '</h3>';
         }
       ?>
       <h3 class="add__article-title">發表文章：</h3>
@@ -78,7 +78,7 @@
     // 讓下拉選單存好原本的分類
     const category = document.querySelector('option[value=hidden]').getAttribute('data-value');
     document.querySelector(`option[value=${category}]`).setAttribute('selected', '');
-    
+
     // 游標挪最後
     function setFocus(obj) {
       obj.focus();
