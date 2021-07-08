@@ -1,0 +1,51 @@
+/* btn 樣式 */
+%btn {
+  text-decoration: none;
+  background: $secondary-color;
+  color: $default-color;
+  border: 1px solid $secondary-color;
+  border-radius: 4px;
+  padding: 10px 24px;
+  font-size: $font-sm;
+  transition: background 0.3s;
+}
+
+%btn-sm {
+  text-decoration: none;
+  background: $secondary-color;
+  color: $default-color;
+  border: 1px solid $secondary-color;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: $font-sm;
+  transition: background 0.3s;
+}
+
+%btn-hover {
+  &:hover {
+    background: $default-color;
+    color: $secondary-color;
+  }
+}
+
+/* 文章 時間戳＆分類 */
+%articles-info {
+  font-size: $font-sm;
+  color: $secondary-color;
+  margin: 10px 0;
+  position: relative;
+}
+
+%articles-align {
+  & > span {
+    vertical-align: bottom;
+  }
+}
+
+%articles-icon {
+  & span:nth-child(2) {
+    margin-left: 10px;
+    font-size: $font-md;
+    vertical-align: bottom;
+  }
+}

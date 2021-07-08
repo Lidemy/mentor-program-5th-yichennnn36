@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>留言板</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Varela+Round&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <style>
+    * {
+      font-family: 'Varela Round', sans-serif;
+    }
+    .board-title {
+      font-size: 50px;
+      color: #846d44;
+    }
+    .btn {
+      background-color: #846d44;
+      color: white;
+    }
+    .card-header-time {
+      font-size: 12px;
+      color: #846d44;
+      min-width: 137px;
+      margin-left: 5px;
+    }
+    .card-text {
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-lg" style="margin-top: 50px;margin-bottom: 50px;">
+    <h1 class="board-title mb-5 fw-bolder">Write your Message Here!</h1>
+    <div class="row">
+      <div class="col-12 col-md-5">
+        <form class="add-comments-form">
+          <div class="input-group flex-nowrap">
+            <span class="input-group-text" id="addon-wrapping">@</span>
+            <input type="text" name="nickname" class="form-control" placeholder="請輸入暱稱" aria-label="nickname" aria-describedby="addon-wrapping">
+          </div>
+          <div class="input-group mt-3">
+            <textarea type="text" name="content" class="form-control" rows="8" placeholder="請輸入留言：）" aria-label="input content" aria-describedby="button-addon2"></textarea>
+          </div>
+          <div class="submit-btn text-end"><button class="btn mt-3 mb-5" type="submit" id="input-submit">送出</button></div>
+        </form>
+      </div>
+      <div class="col col-md-7">
+        <div class="board-content">
+        <!-- js 動態產生內容 -->
+        </div>
+        <div class="submit-btn text-center mt-4"><button type="button" class="btn btn-sm" id="loading-btn">Read more...</button></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script>
+    const baseUrl = '.';
+    const siteKey = 'yichen';
+    const limit = 5;
+    let cursor = null;
+    const commentsDOM = $('.board-content');
+    const HTML_TEMPLATES = `
+        <div class="card mb-3">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span class="card-header-name">@ $nickname</span>
+            <span class="card-header-time">・$created_at</span>
+          </div>
+          <div class="card-body">
+            <p class="card-text">$content</p>
+          </div>
+        </div>
+      `;
+
+    function init(options) {
+      siteKey = options.siteKey;
+      apiUrl = options.apiUrl;
+      containerElement = $(options.container);
+    }
+    init();
+
+    function escape(unsafe) {
+      return unsafe
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function appendCommentToDOM(container, comment, isPrepend) {
+      const html = HTML_TEMPLATES
+        .replace('$nickname', escape(comment.nickname))
+        .replace('$created_at', escape(comment.created_at))
+        .replace('$content', escape(comment.content));
+      isPrepend ? container.prepend(html) : container.append(html);
+    }
+
+    function sendRequest(siteKey, cursor, callback) {
+      let url = `${baseUrl}/api_comments.php?site_key=${siteKey}`;
+      if (cursor) {
+        url += `&cursor=${cursor}`;
+      }
+      $.ajax({
+        type: 'GET',
+        url,
+        success: (data) => {
+          if (!data.ok) {
+            alert('資料抓取失敗，請再試一次');
+            console.log('Error: ', data.discussions);
+            return;
+          }
+          const comments = data.discussions;
+          callback(comments);
+        },
+        error: (error) => {
+          alert('資料抓取失敗，請再試一次');
+          console.log('Error: ', error);
+        }
+      });
+    }
+    // 增加留言 POST 到後端
+    function addComment(siteKey, callback) {
+      const inputComment = {
+        site_key: siteKey,
+        nickname: $('input[name=nickname]').val(),
+        content: $('textarea[name=content]').val()
+      };
+      $.ajax({
+        type: 'POST',
+        url: `${baseUrl}/api_add_comments.php`,
+        data: inputComment,
+        success: (data) => {
+          if (!data.ok) {
+            alert('請完整輸入內容後新增！');
+            console.log('Error: ', data.message);
+          }
+          callback(data);
+        }
+      });
+    }
+    // 抓所有留言並 append
+    function getComments(comments) {
+      // 代表後面還有未抓出的留言
+      if (comments.length >= limit + 1) {
+        for (let i = 0; i < limit; i++) {
+          appendCommentToDOM(commentsDOM, comments[i]);
+        }
+        // 抓倒數第二則 comments 的 id
+        cursor = comments[comments.length - 2].id;
+        return cursor;
+      } else {
+        for (const comment of comments) {
+          appendCommentToDOM(commentsDOM, comment);
+        }
+        $('#loading-btn').hide();
+      }
+    }
+  </script>
+</body>
+</html>
