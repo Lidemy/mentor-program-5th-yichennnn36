@@ -1,31 +1,18 @@
 const baseUrl = 'https://api.twitch.tv/kraken';
 const topGameLimit = 5;
 const streamsLimit = 20;
-const HEADERS = {
+const requestHeaders = {
   headers: {
     Accept: 'application/vnd.twitchtv.v5+json',
     'Client-id': 'hv6q8btkyedopx5cir6xk0884d1067'
   }
 };
-const STREAM_TEMPLATE = `
-  <a href="https://www.twitch.tv/$name" target="_blank">
-    <div class="games__preview"><img src="$preview"></div>
-    <div class="games__content">
-      <div class="games__logo"><img src="$logo"></div>
-      <div class="games__channel">
-        <div class="games__channel-status">$status</div>
-        <div class="games__channel-name">$displayName</div>
-      </div>
-    </div>
-  </a>`;
-
 let offset = 0;
+
 // 拿到前 5 筆熱門遊戲的資料
 async function getTopGames() {
-  const response = await fetch(`${baseUrl}/games/top?limit=${topGameLimit}`, HEADERS);
+  const response = await fetch(`${baseUrl}/games/top?limit=${topGameLimit}`, requestHeaders);
   const data = await response.json();
-  // 我測試了一下，在這邊先做一個錯誤判斷會幫助 debug，像是 Client-id 或是 url 有錯的話
-  // `Error message` 會寫得比較清楚
   if (data.error) {
     console.log(`Error: ${data.error} & ${data.message}`);
     return;
@@ -34,7 +21,7 @@ async function getTopGames() {
 }
 // 拿到前 20 筆熱門實況的資料
 async function getStreams(game, offset) {
-  const response = await fetch(`${baseUrl}/streams?game=${encodeURIComponent(game)}&limit=${streamsLimit}&offset=${offset}`, HEADERS);
+  const response = await fetch(`${baseUrl}/streams?game=${encodeURIComponent(game)}&limit=${streamsLimit}&offset=${offset}`, requestHeaders);
   const data = await response.json();
 
   if (data.error) {
@@ -75,15 +62,18 @@ function renderStreams(gameData) {
   const { streams } = gameData;
   for (const stream of streams) {
     const gamesBlock = document.createElement('div');
-    const html = STREAM_TEMPLATE
-      .replace('$name', stream.channel.name)
-      .replace('$preview', stream.preview.large)
-      .replace('$logo', stream.channel.logo)
-      .replace('$status', stream.channel.status)
-      .replace('displayName', stream.channel.display_name);
-
     gamesBlock.classList.add('games__block');
-    gamesBlock.innerHTML = html;
+    gamesBlock.innerHTML = `
+      <a href="https://www.twitch.tv/${stream.channel.name}" target="_blank">
+        <div class="games__preview"><img src="${stream.preview.large}"></div>
+        <div class="games__content">
+          <div class="games__logo"><img src="${stream.channel.logo}"></div>
+          <div class="games__channel">
+            <div class="games__channel-status">${stream.channel.status}</div>
+            <div class="games__channel-name">${stream.channel.display_name}</div>
+          </div>
+        </div>
+      </a>`;
     document.querySelector('.games').appendChild(gamesBlock);
   }
   deleteAllEmptyStreams();
