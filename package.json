@@ -10,6 +10,7 @@
   "lint-staged": {
     "*.js": "eslint --cache"
   },
+  "eslintIgnore": "bundle.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Lidemy/mentor-program-5th.git"
