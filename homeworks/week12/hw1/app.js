@@ -1,19 +1,7 @@
-const baseUrl = '.';
 const siteKey = 'yichen';
-const limit = 5;
+const commentsDOM = $('.comments');
 let cursor = null;
-const commentsDOM = $('.board-content');
-const HTML_TEMPLATES = `
-    <div class="card mb-3">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <span class="card-header-name">@ $nickname</span>
-        <span class="card-header-time">・$created_at</span>
-      </div>
-      <div class="card-body">
-        <p class="card-text">$content</p>
-      </div>
-    </div>
-  `;
+let isLastPage = false;
 
 function escape(unsafe) {
   return unsafe
@@ -23,105 +11,102 @@ function escape(unsafe) {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
 }
-
-function appendCommentToDOM(container, comment, isPrepend) {
-  const html = HTML_TEMPLATES
-    .replace('$nickname', escape(comment.nickname))
-    .replace('$created_at', escape(comment.created_at))
-    .replace('$content', escape(comment.content));
-  isPrepend ? container.prepend(html) : container.append(html);
-}
-
-function sendRequest(siteKey, cursor, callback) {
-  let url = `${baseUrl}/api_comments.php?site_key=${siteKey}`;
+// ajax
+// 跟後端拿留言內容
+function getComments(siteKey, cursor, callback) {
+  let url = `api_comments.php?site_key=${siteKey}`;
   if (cursor) {
     url += `&cursor=${cursor}`;
   }
   $.ajax({
     type: 'GET',
     url,
-    success: (data) => {
-      if (!data.ok) {
-        alert('資料抓取失敗，請再試一次');
-        console.log('Error: ', data.discussions);
+    success: (response) => {
+      if (!response.ok) {
+        alert(response.error_message);
         return;
       }
-      const comments = data.discussions;
-      callback(comments);
-    },
-    error: (error) => {
-      alert('資料抓取失敗，請再試一次');
-      console.log('Error: ', error);
+      callback(response);
     }
   });
 }
-// 增加留言 POST 到後端
-function addComment(siteKey, callback) {
-  const inputComment = {
+// ajax
+// post 留言
+function addComments(callback) {
+  const newCommentDOM = {
     site_key: siteKey,
     nickname: $('input[name=nickname]').val(),
     content: $('textarea[name=content]').val()
   };
   $.ajax({
     type: 'POST',
-    url: `${baseUrl}/api_add_comments.php`,
-    data: inputComment,
-    success: (data) => {
-      if (!data.ok) {
-        alert('請完整輸入內容後新增！');
-        console.log('Error: ', data.message);
+    url: 'api_add_comments.php',
+    data: newCommentDOM,
+    success: (response) => {
+      if (!response.ok) {
+        alert(response.error_message);
+        return;
       }
-      callback(data);
+      callback(response);
     }
   });
 }
-// 抓所有留言並 append
-function getComments(comments) {
-  // 代表後面還有未抓出的留言
-  if (comments.length >= limit + 1) {
-    for (let i = 0; i < limit; i++) {
+function appendCommentToDOM(container, comment, isPrepend) {
+  const html = `
+    <div class="card mb-3">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <span class="card-header-name">#${comment.id} - @ ${escape(comment.nickname)}</span>
+        <span class="card-header-time">・${escape(comment.created_at)}</span>
+      </div>
+      <div class="card-body">
+        <p class="card-text">${escape(comment.content)}</p>
+      </div>
+    </div>
+  `;
+  isPrepend ? container.prepend(html) : container.append(html);
+}
+function renderComments() {
+  getComments(siteKey, cursor, (data) => {
+    const comments = data.discussions;
+    isLastPage = data.is_last_page;
+    // 最後一頁的話，就把所有資料 append 出來
+    if (isLastPage) {
+      for (const comment of comments) {
+        appendCommentToDOM(commentsDOM, comment);
+      }
+      return $('#load-btn').hide();
+    }
+    // isLastPage = false，從六筆資料中抓前五筆
+    for (let i = 0; i < 5; i++) {
       appendCommentToDOM(commentsDOM, comments[i]);
     }
-    // 抓倒數第二則 comments 的 id
+    $('#load-btn').show();
     cursor = comments[comments.length - 2].id;
-    return cursor;
-  } else {
-    for (const comment of comments) {
-      appendCommentToDOM(commentsDOM, comment);
-    }
-    $('#loading-btn').hide();
-  }
+  });
 }
-// 畫面載入留言
-sendRequest(siteKey, cursor, (comments) => {
-  getComments(comments);
-});
-// 輸入事件監聽
+// 初始畫面
+renderComments();
+// 表單送出
 $('.add-comments-form').submit((e) => {
+  // 不讓表單送出
   e.preventDefault();
-  const button = $(e.target).find('button[type=submit]');
   // 讓按鈕在送出後禁用一秒，避免使用者連點
-  button.attr('disabled', true);
+  $('#input-submit').attr('disabled', true);
   setTimeout(() => {
-    button.removeAttr('disabled');
+    $('#input-submit').removeAttr('disabled');
   }, 1000);
 
-  addComment(siteKey, (data) => {
-    // 清空輸入框
-    $('input[name=nickname]').val('');
-    $('textarea[name=content]').val('');
-    // 抓取即刻輸入的留言並顯示
-    if (!data.ok) {
-      return;
-    }
-    sendRequest(siteKey, null, (comments) => {
+  addComments(() => {
+    // 因為要抓寫入的時間，所以再發 request 拿最新的資料並 append 出來
+    getComments(siteKey, null, (data) => {
+      const comments = data.discussions;
       appendCommentToDOM(commentsDOM, comments[0], true);
     });
+    $('input[name=nickname]').val('');
+    $('textarea[name=content]').val('');
   });
 });
-// Read more 按鈕點擊事件
-$('#loading-btn').click(() => {
-  sendRequest(siteKey, cursor, (comments) => {
-    getComments(comments);
-  });
+// 按鈕點擊，載入更多
+$('#load-btn').click(() => {
+  renderComments();
 });

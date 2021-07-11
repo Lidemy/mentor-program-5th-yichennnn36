@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>留言板</title>
+  <title>week12 留言板</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&family=Varela+Round&display=swap" rel="stylesheet">
@@ -31,6 +31,9 @@
     .card-text {
       white-space: pre-line;
     }
+    .hide {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -50,10 +53,12 @@
         </form>
       </div>
       <div class="col col-md-7">
-        <div class="board-content">
+        <div class="comments">
         <!-- js 動態產生內容 -->
         </div>
-        <div class="submit-btn text-center mt-4"><button type="button" class="btn btn-sm" id="loading-btn">Read more...</button></div>
+        <div class="submit-btn text-center mt-4">
+          <button type="button" class="hide btn btn-sm" id="load-btn">Read more...</button>
+        </div>
       </div>
     </div>
   </div>
