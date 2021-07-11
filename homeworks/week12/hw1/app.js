@@ -1,3 +1,4 @@
+const apiUrl = 'http://mentor-program.co/mtr04group5/yichen/week12/hw1';
 const siteKey = 'yichen';
 const commentsDOM = $('.comments');
 let cursor = null;
@@ -14,7 +15,7 @@ function escape(unsafe) {
 // ajax
 // 跟後端拿留言內容
 function getComments(siteKey, cursor, callback) {
-  let url = `api_comments.php?site_key=${siteKey}`;
+  let url = `${apiUrl}/api_comments.php?site_key=${siteKey}`;
   if (cursor) {
     url += `&cursor=${cursor}`;
   }
@@ -40,7 +41,7 @@ function addComments(callback) {
   };
   $.ajax({
     type: 'POST',
-    url: 'api_add_comments.php',
+    url: `${apiUrl}/api_add_comments.php`,
     data: newCommentDOM,
     success: (response) => {
       if (!response.ok) {
