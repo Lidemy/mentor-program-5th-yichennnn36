@@ -127,7 +127,4 @@ document.querySelector('#showmore_btn').addEventListener('click', (e) => {
   offset += 20;
   const game = document.querySelector('.games__title').innerText;
   showMoreStreams(game, offset);
-  // const data = getStreams(game, offset);
-  // console.log(game, data);
-  // renderStreams(data);
 });
