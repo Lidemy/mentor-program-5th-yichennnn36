@@ -110,8 +110,13 @@ nav {
   margin: 30px auto 0;
   z-index: 2;
 }
-.games__block, .empty__block {
+.games__block {
   max-width: 500px;
+  margin: 20px auto 60px;
+  transition: transform 0.4s;
+}
+.empty__block {
+  width: 500px;
   margin: 20px auto 60px;
   transition: transform 0.4s;
 }
@@ -236,8 +241,12 @@ nav {
     font-size: 38px;
     padding: 60px 0 10px;
   }
-  .games__block, .empty__block {
+  .games__block {
     max-width: 400px;
+    margin: 20px 10px 60px;
+  }
+  .empty__block {
+    width: 400px;
     margin: 20px 10px 60px;
   }
 }
