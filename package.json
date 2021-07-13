@@ -29,6 +29,7 @@
     "lint-staged": "^10.5.4"
   },
   "dependencies": {
+    "jquery": "^3.6.0",
     "request": "^2.88.2"
   }
 }

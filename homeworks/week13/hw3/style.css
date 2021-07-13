@@ -1,0 +1,252 @@
+* {
+  box-sizing: border-box;
+}
+html {
+  height: 100%;
+}
+body {
+  background: url('./twitch.jpeg');
+  height: 100%;
+  overflow: scroll;
+}
+.wrapper {
+  min-height: 100%;
+  position: relative;
+}
+nav {
+  background: #5c2fb1;
+  height: 100px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  z-index: 2;
+}
+.nav__title {
+  font-size: 32px;
+  color: white;
+  padding: 35px 20px;
+  font-weight: bolder;
+  font-family: 'Fredoka One', cursive;
+}
+#select__control {
+  position: absolute;
+  opacity: 0;
+  z-index: -2;
+}
+.select__btn {
+  width: 40px;
+  height: 40px;
+  background: black;
+  display: block;
+  position: absolute;
+  top: 28px;
+  right: 10px;
+  border-radius: 10%;
+}
+.select__btn span{
+  opacity: 0;
+}
+.select__btn::before {
+  content: '';
+  width: 28px;
+  height: 3px;
+  position: absolute;
+  left: 6px;
+  background: white;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  box-shadow: 0 8px 0 white, 0 -8px 0 white;
+}
+.nav__select {
+  width: 70%;
+  height: calc(100vh - 100px);
+  background: black;
+  position: absolute;
+  top: 100px;
+  right: -100%;
+  transition: 0.7s;
+}
+#select__control:checked ~ nav .nav__select {
+  right: 0;
+}
+.nav__select a {
+  display: block;
+  text-decoration: none;
+  color: white;
+  margin: 50px 40px 40px;
+  font-family: 'Rubik', sans-serif;
+  cursor: pointer;
+}
+.nav__select a:hover {
+  transform: translate(0, 2px);
+}
+.main {
+  min-height: 100%;
+  color: white;
+  padding: 100px 0 0;
+  position: relative;
+  z-index: 0;
+}
+.games__title {
+  font-family: 'Rubik', sans-serif;
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+  padding: 50px 0 10px;
+  z-index: 2;
+}
+.games__desc {
+  font-family: 'Baloo 2', 'Noto Sans TC', sans-serif;
+  text-align: center;
+  font-size: 18px;
+  line-height: 2rem;
+  margin: 0 20px;
+  z-index: 2;
+  margin-bottom: 54px;
+}
+.games {
+  margin: 30px auto 0;
+  z-index: 2;
+}
+.games__block {
+  max-width: 500px;
+  margin: 20px auto 60px;
+  transition: transform 0.4s;
+}
+.empty__block {
+  width: 500px;
+  margin: 20px auto 60px;
+  transition: transform 0.4s;
+}
+.games__block a {
+  text-decoration: none;
+  color: white;
+}
+.games__block:hover {
+  transform: scale(1.05);
+}
+.games__preview img{
+  width: 100%;
+}
+.games__content {
+  display: flex;
+}
+.games__logo img {
+  width: 70px;
+  height: 70px;
+  margin-top: 6px;
+}
+.games__channel {
+  margin-left: 10px;
+}
+.games__channel-status {
+  height: 30px;
+  width: 250px;
+  margin-top: 12px;
+  font-family: 'Baloo 2', 'Noto Sans TC', sans-serif;
+  font-size: 21px;
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-top: 3px;
+}
+.games__channel-name {
+  height: 30px;
+  width: 300px;
+  margin-top: 12px;
+  font-family: 'Baloo 2', 'Noto Sans TC', sans-serif;
+  font-size: 16px;
+  color: #cfc5dd;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-top: 3px;
+}
+#showmore_btn {
+  text-align: center;
+  padding: 10px 0 120px;
+}
+#showmore_btn button {
+  color: white;
+  background: black;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 10px 16px;
+}
+#showmore_btn button:hover{
+  transform: translate(0, -4px);
+}
+.hide {
+  display: none;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: white;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #5c2fb1;
+  text-align: center;
+  padding: 18px 0;
+}
+@media screen and (min-width:800px) {
+  .select__btn {
+    display: none;
+  }
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .nav__title {
+    margin-left: 30px;
+    font-size: 36px;
+  }
+  .nav__select {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    right: 0;
+    width: auto;
+    height: auto;
+    top: 0;
+    background: none;
+    margin: 0 10px;
+  }
+  .nav__select a {
+    color: black;
+    margin: auto;
+    line-height: 1.2rem;
+    padding: 14px 24px;
+    margin-right: 12px;
+    transition: background 0.15s;
+    text-align: left;
+  }
+  .nav__select a:hover {
+    background: white;
+    color: #5c2fb1;
+  }
+  .games {
+    max-width: 1580px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .games__title {
+    font-size: 38px;
+    padding: 60px 0 10px;
+  }
+  .games__block {
+    max-width: 400px;
+    margin: 20px 10px 60px;
+  }
+  .empty__block {
+    width: 400px;
+    margin: 20px 10px 60px;
+  }
+}

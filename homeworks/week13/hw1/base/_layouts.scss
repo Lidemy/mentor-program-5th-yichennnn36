@@ -1,0 +1,124 @@
+/* navbar css */
+.site {
+  &__header {
+    height: 90px;
+    background: $default-color;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    box-shadow: -1.4px -1.4px 6px 0 $background-color;
+    padding: 0 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+  }
+  &__icon {
+    width: 50px;
+    height: 50px;
+    background: $secondary-color;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+
+    a {
+      color: $default-color;
+      text-decoration: none;
+      line-height: $line-height-lg;
+      padding: 10px 14px;
+    }
+  }
+  &__navbar {
+    position: absolute;
+    top: 90px;
+    right: -100%;
+    z-index: 2;
+    width: 60%;
+    height: calc(100vh - 90px);
+    background: $primary-color;
+    transition: 0.4s ease-in-out;
+    line-height: $line-height-xl;
+
+    @media screen and (min-width:1000px) {
+      position: relative;
+      display: flex;
+      top: 0;
+      right: 0;
+      width: auto;
+      height: auto;
+      background: none;
+      margin: 0 10px;
+    }
+    li {
+      margin: 16px 32px;
+      list-style: none;
+
+      @media screen and (min-width:1000px) {
+        margin: 0;
+      }
+    }
+    a {
+      text-decoration: none;
+      color: $default-color;
+      font-size: $font-md;
+      margin: 10px;
+
+      @media screen and (min-width:1000px) {
+        margin: 0 30px;
+        color: $primary-color;
+      }
+    }
+    & a:hover, & .active {
+      color: $secondary-color;
+      border-bottom: 2px solid $secondary-color;
+      padding-bottom: 8px;
+    }
+  }
+}
+.nav {
+  &__hamburger {
+    width: 40px;
+    height: 40px;
+    display: block;
+    position: absolute;
+    top: 36px;
+    right: 50px;
+    cursor: pointer;
+
+    @media screen and (min-width:1000px) {
+      display: none;
+    }
+
+    span {
+      opacity: none;
+    }
+
+    &::after {
+      content: "";
+      width: 32px;
+      height: 3px;
+      background: $primary-color;
+      position: absolute;
+      top: 7px;
+      right: 10px;
+      box-shadow: 0 10px 0 $primary-color, 0 -10px 0 $primary-color;
+    }
+  }
+}
+#nav__control:checked ~ header .site__navbar {
+  right: 0;
+}
+/* pagination css */
+.pagination {
+  text-align: center;
+
+  a {
+    color: $secondary-color;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: $font-md;
+    margin: 0 10px;
+  }
+}
