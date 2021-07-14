@@ -58,8 +58,9 @@ drwxr-xr-x  2 ubuntu root 4096 Jul 13 14:35 html
 < 這邊有花點時間再回去看了之前權限的筆記，太久沒用到 >
 
 #### 上傳專案
-我使用了兩種做法做做看
-1. FileZilla：
+我使用了兩種做法實作
+1. git clone 上傳 GitHub repository
+2. FileZilla：
   想說好像跟交作業的方式差不多，改一改 apiUrl、conn.php 後上傳，迫不及待打開瀏覽器看，直接就給我失敗qq，於是又是一連串 debug：
 
   1. 資料庫怪怪的，會跑出
@@ -67,12 +68,21 @@ drwxr-xr-x  2 ubuntu root 4096 Jul 13 14:35 html
   Warning in ./libraries/plugin_interface.lib.php#551
   count(): Parameter must be an array or an object that implements Countable
   ```
-  原因是，count() 在沒有添加參數的情況下會噴錯誤，參考[HeidiLiu 筆記](https://hackmd.io/@Heidi-Liu/note-website-deployment)做處理
+  原因是，count() 在沒有添加參數的情況下會噴錯誤，參考[HeidiLiu 筆記](https://hackmd.io/@Heidi-Liu/note-website-deployment)做處理。
 
   2. 留言板畫面成功渲染，但抓不到留言
-  看了錯誤訊息是回傳 500，覺得很奇怪，檢查好久都想說沒寫錯呀，想了一下既然有成功跑出畫面，程式碼 api 又沒錯，打開 phpMyAdmin
-2. git clone 上傳 GitHub repository
+  看了錯誤訊息是回傳 500，覺得很奇怪，檢查好久都想說沒寫錯呀，想了一下既然有成功跑出畫面，程式碼 api 又沒錯，打開 phpMyAdmin 檢查，才發現是 table 拼錯...
 
+  3. 新增留言失敗
+  POST 失敗，顯示資料庫寫入失敗，打開 devtool 看確定是有抓到留言沒錯，但寫入失敗？！推測一下不是程式碼就是 INSERT INTO query 有錯，就把 sql 丟到 phpMyAdmin 去跑後錯誤就跑出來了
+  ```
+  #1364 - Field 'id' doesn't have a default value
+  ```
+  當下想說該不會 AUTO_INCREMENT 忘記勾起來，還真的是這樣。
+
+### 部署總結
+考慮到其實蠻多參考資料都附上很詳細的部署步驟及 CLI 指令，所以 hw2 內容主要都放在我實作的過程以及我遇到什麼問題，接著怎麼解決。
+我覺得一開始遇到最大的問題就是開頭寫到的：根本不知道要從何開始下手，這時候好像只能先統整要做的事情和釐清目的是什麼，再去下關鍵字找資料。在這週我也體會到了如何從官方提供的資料海中找到需要的資料
 
 
 
