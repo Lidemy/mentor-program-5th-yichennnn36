@@ -16,12 +16,14 @@
 * 註冊
 * Create an EC2 instance
 * 選擇作業系統 - Ubuntu
-  看文件寫 `Select the Amazon Linux AMI.`，但裡面又有 macOS、Red Hat、Ubuntu、Microsoft，這些反而還是我看過的，所以又去查了一下，看到學長姐的部署筆記和同學都是使用 ubuntu，所以我就選了這個。
+  > 看文件寫 `Select the Amazon Linux AMI.`，但裡面又有 macOS、Red Hat、Ubuntu、Microsoft，這些反而還是我看過的，所以又去查了一下，看到學長姐的部署筆記和同學都是使用 ubuntu，所以我就選了這個。
 * 選擇 Instance Type -> 設定 Security Group -> 設定 private key
   這部分我也都參考網站文件、資料一直 next 到設定 Security Group ＆ 金鑰後就完成了。
   > 設定 Security Group：設定允許透過哪些 port 可以傳入資料，和透過哪些 port 可以傳出資料。
-  
-  < SG 我是另外創建一個新的：包含 SSH/HTTP/HTTPS/MySQL，後續有發現一些問題下方會補充 >
+  > - SSH (22 port)
+  > - HTTP、HTTPS (接收 http request 的防火牆 80/443 port)
+  > - MySQL (連線資料庫的防火牆 3306 port)>
+ 
 * 測試連線，照指令執行
   ```
   $ chmod 400 <私鑰檔案路徑>
@@ -49,10 +51,10 @@
 跟助教拿到折扣碼後就成功購買了自己的網域（整個過程好像購物網站XD），也是照著[文件](https://docs.gandi.net/zh-hant/)去操作，註冊好域名後：
 * `A Record` 改成 AWS 主機的 IP 地址
 
-    > * A Record：最常見的設定方式把網址與 IP 做雙向綁定，可指向一個或多個 IP 地址。
-    > * CNAME Record：指向一個名稱而不是 IP 地址。
-    > * TXT Record：為一些說明文字﹐可以用來說明主機/網路環境設定。
-    > * MX Record：郵件伺服器﹐負責經由DNS查詢進行郵件傳遞的郵件伺服器。
+  > * A Record：最常見的設定方式把網址與 IP 做雙向綁定，可指向一個或多個 IP 地址。
+  > * CNAME Record：指向一個名稱而不是 IP 地址。
+  > * TXT Record：為一些說明文字﹐可以用來說明主機/網路環境設定。
+  > * MX Record：郵件伺服器﹐負責經由DNS查詢進行郵件傳遞的郵件伺服器。
 
 一開始不是很了解 CNAME Record 是什麼，所以整理了資料：
 * A Record 指向 IP 位址做關聯：
@@ -99,35 +101,37 @@ drwxr-xr-x  2 ubuntu root 4096 Jul 13 14:35 html
     ```
     > 當下想說該不會 AUTO_INCREMENT 忘記勾起來，還真的是這樣。
 
+***
 
 # 部署後續與總結
 考慮到其實蠻多參考資料都附上很詳細的部署步驟及 CLI 指令，所以 hw2 內容主要都放在我實作的過程以及我遇到什麼問題，接著怎麼解決。
 
 ### 後續發現問題
-* Elastic IP addresses：
-部署完的第二天，一打開 EC2 就發現 IP 變了，核對之前設定的 DNS A Record，還真的不一樣，於是就參照官方文件建立關聯：
-  * 原來 IP 是會變的 ＠＠！
+* 原來 IP 是會變的 ＠＠！：
+重啟 EC2 instance 後發現 IP 改變了，參考[文件](https://enterprise.arcgis.com/en/server/latest/cloud/amazon/allocate-elastic-ip-and-associate-with-your-instance.htm)上的說明，可以利用 `Elastic IP` 解決。
   * 什麼是 [Elastic IP addresses](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html)？
-
-    > 可以透過網域的 DNS 紀錄中指定彈性 IP 位址，或是將 instance 與 彈性 IP 位址建立關聯
+      > 可以透過網域的 DNS 紀錄中指定彈性 IP 位址，或是將 instance 與 彈性 IP 位址建立關聯，但不是很清楚在實作上都會建立關聯嗎？還是不會設定這個？
 
 * 防火牆安全性問題：
-在同學的進度報告上看到防火牆安全性的問題，一直以為我的 security group 設定後就沒事了，殊不知輸入指令 `$ sudo ufw status` 才赫然發現根本 `inactive`，重新設定都把它打開。
+在同學的進度報告上看到防火牆安全性的問題，一直以為我的 security group 設定後就沒事了，查了資料感覺 aws 的 Security Group 跟 linux ufw 不太一樣，但開啟 port 的設定功能應該是重疊不衝突的？(這部分還是沒有很懂)
+輸入指令 `$ sudo ufw status` 顯示 `inactive`，還是使用 `sudo ufs` 設定都把它打開。
 
   > 這邊又多了很多坑，e.g. VPC、CIDR，查過資料但不太懂，不知道有沒有需要先把這塊補起來？
 
-* SSL/TLS：
+* SSL：
 這週剛好有跟助教 Jas0n 問到關於 http/https 的問題（github pages 連到 mentor-program.co 的 [Mixed Content](https://web.dev/fixing-mixed-content/) 錯誤）。
 問題解決後藉由查到的資料知道 SSL 憑證是什麼，想說也可以來實作看看，就使用助教推薦的 cloudflare。
-看到很多文章都說盡量都使用 https，如果使用 http 的話，chrome 也會擋，SEO 也會有影響，我也有個問題，既然都鼓勵大家使用 https，那為什麼還要有 http？
-看完資料的理解應該是，如果再公開網路上使用 http 非常不安全，因為傳遞的資料都是明文，要是過程中被惡意竊取，資料便會被盜用或偷走，因此才需要使用相對安全的資料傳輸：HTTPS（是透過 HTTP 進行通訊，但通訊過程使用 SSL/TLS 進行加密）。
-因為 SSL 驗證的成本考量？如果在非公開網路上使用是否就沒有這個問題？這邊也是疑惑的點
+
+  > 看到很多文章都說盡量都使用 https，如果使用 http 的話，chrome 也會擋，SEO 也會有影響，我也有個問題，既然都鼓勵大家使用 https，那為什麼還要有 http？
+  看完資料的理解應該是，如果再公開網路上使用 http 非常不安全，因為傳遞的資料都是明文，要是過程中被惡意竊取，資料便會被盜用或偷走，因此才需要使用相對安全的資料傳輸：HTTPS（是透過 HTTP 進行通訊，但通訊過程使用 SSL/TLS 進行加密）。
+  因為 SSL 驗證的成本考量？如果在非公開網路上使用是否就沒有這個問題？這邊也是疑惑的點
 
 ### 總結
-我覺得一開始遇到最大的問題就是開頭寫到的：根本不知道要從何開始下手，一開始連需要一個主機都不知道，這時候好像只能先統整要做的事情和釐清目的是什麼，再去下關鍵字找資料。過程也是納悶參雜痛苦，還是很感謝有學長姐的奮鬥史與筆記，這就是所謂前人種樹，後人乘涼的概念嗎 (ﾟ´Д｀ﾟ)ﾟ
+我覺得一開始遇到最大的問題就是開頭寫到的：根本不知道要從何開始下手，一開始連需要一個主機都不知道，這時候好像只能先統整要做的事情和釐清目的是什麼，再去下關鍵字找資料。過程也是納悶參雜痛苦，還是很感謝有學長姐的奮鬥史與筆記，不然我應該做到天荒地老，這就是所謂前人種樹，後人乘涼的概念嗎 (ﾟ´Д｀ﾟ)ﾟ
 
+***
 
-參考資料：
+### 參考資料：
 * [部署 AWS EC2 遠端主機 + Ubuntu LAMP 環境 + phpmyadmin](https://github.com/Lidemy/mentor-program-2nd-yuchun33/issues/15)
 * [如何遠端連接虛擬主機上的 mySQL 資料庫 ？](https://github.com/Lidemy/mentor-program-2nd-futianshen/issues/33)
 * [[week 14] 網站部署 - 設定 AWS EC2 遠端主機 + Ubuntu LAMP 環境 + phpMyAdmin](https://hackmd.io/@Heidi-Liu/note-website-deployment)
