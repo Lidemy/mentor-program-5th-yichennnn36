@@ -1,4 +1,4 @@
-![](https://i.imgur.com/vwfDgds.png)
+![](https://i.imgur.com/GeUlX7I.png)
 
 為了避免 Single point of failure，Server、cache、Database 都會建立不只一個。
 - load balancer：自動將傳入的流量(request)分散到多個 Server
