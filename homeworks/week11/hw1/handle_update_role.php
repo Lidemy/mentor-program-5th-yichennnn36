@@ -16,13 +16,13 @@
     }
   }
   $id = escape($_GET['id']);
-  $role = $_POST['role'];
+  $role_id = $_POST['role'];
   if ($role === 'SELECTED') {
     header('Location:admin.php?errMsg=empty_role&id=' . $id);
     die();
   }
-  $stmt = $conn->prepare('UPDATE yichen_users SET role=? WHERE id=?');
-  $stmt->bind_param('si', $role, $id);
+  $stmt = $conn->prepare('UPDATE yichen_users SET role_id = ? WHERE id = ?');
+  $stmt->bind_param('ii', $role_id, $id);
   $result = $stmt->execute();
   if (!$result) {
     die($conn->error);

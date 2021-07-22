@@ -10,7 +10,7 @@
   $username = $_SESSION['username'];
   $update_nickname = escape($_POST['nickname__update']);
 
-  $stmt = $conn->prepare('UPDATE yichen_users SET nickname=? WHERE username=?');
+  $stmt = $conn->prepare('UPDATE yichen_users SET nickname = ? WHERE username = ?');
   $stmt->bind_param('ss', $update_nickname, $username);
   $result = $stmt->execute();
   if (!$result) {
