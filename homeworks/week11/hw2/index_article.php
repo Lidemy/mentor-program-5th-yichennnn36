@@ -23,6 +23,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="./bundle.js"></script>
   <title>Blog</title>
 </head>
 
@@ -51,9 +54,21 @@
           <span class=".one__article-category"><?php echo set_category_name(escape($articles_data['category'])); ?></span>
         </div>
         <h2 class="one__article-title"><?php echo escape($articles_data['title']); ?></h2>
-        <p class="one__article-context"><?php echo escape($articles_data['content']); ?></p>
+        <p class="one__article-context"><?php echo $articles_data['content']; ?></p>
+      </div>
+      <div class="message_block">
+        <h3 class="message_title"> Write your message here!</h3>
+        <div class="comments-area"></div>
       </div>
     </div>
   </main>
+  <script>
+    commentPlugin.init({
+      siteKey: "blog_<?php echo escape($articles_data['id']); ?>",
+      apiUrl: 'http://localhost:8080/yichen/review/week12_api',
+      containerSelector: '.comments-area'
+    });
+ 
+  </script>
 </body>
 </html>

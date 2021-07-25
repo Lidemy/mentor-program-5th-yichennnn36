@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="./reset.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+  <script src="https://cdn.ckeditor.com/4.16.1/basic/ckeditor.js"></script>
   <title>Blog 後台</title>
 </head>
 
@@ -66,7 +67,7 @@
         <option value="hidden" data-value="<?php echo escape($articles_data['category']); ?>" hidden></option>
       </select>
       <div class="add__article-input">
-        <textarea name="content" row="6"><?php echo escape($articles_data['content']); ?></textarea>
+        <textarea name="content"><?php echo $articles_data['content']; ?></textarea>
         <input type="hidden" name="id" value="<?php echo escape($articles_data['id']); ?>">
       </div>
       <div class="submit__btn">
@@ -94,6 +95,10 @@
     }
     const input = document.querySelector('input[name=article__title]');
     setFocus(input);
+
+    CKEDITOR.replace( 'content' );
   </script>
 </body>
 </html>
+
+<!-- <textarea name="content" row="6"><?php echo escape($articles_data['content']); ?></textarea> -->

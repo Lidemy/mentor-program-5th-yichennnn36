@@ -9,7 +9,7 @@
     die();
   }
   $username = $_SESSION['username'];
-  $stmt = $conn->prepare("SELECT * FROM yichen_blog_articles WHERE is_deleted is NULL ORDER BY id DESC");
+  $stmt = $conn->prepare("SELECT * FROM yichen_blog_articles WHERE is_deleted = 0 ORDER BY id DESC");
   $stmt->execute();
   $result = $stmt->get_result();
   if (!$result) {

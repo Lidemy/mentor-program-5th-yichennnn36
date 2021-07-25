@@ -11,7 +11,7 @@
   $offset = ($page - 1) * $limit;
 
   $stmt = $conn->prepare(
-    "SELECT * FROM yichen_blog_articles WHERE is_deleted is NULL " . 
+    "SELECT * FROM yichen_blog_articles WHERE is_deleted = 0 " . 
     "ORDER BY id DESC LIMIT ? OFFSET ?"
   );
   $stmt->bind_param('ii', $limit, $offset);
@@ -64,7 +64,7 @@
             <span class="articles__category"><?php echo set_category_name(escape($row['category'])); ?></span>
           </div>
           <h2 class="articles__title"><?php echo escape($row['title']); ?></h2>
-          <p class="articles__context"><?php echo escape($row['content']); ?></p>
+          <div class="articles__context"><?php echo $row['content']; ?></div>
           <div class="articles__btn">
             <a href="index_article.php?id=<?php echo escape($row['id']); ?>">Read more...</a>
           </div>
@@ -73,7 +73,7 @@
       <?php } ?>
     </div>
     <?php 
-      $stmt->prepare('SELECT count(*) FROM yichen_blog_articles WHERE is_deleted IS NULL');
+      $stmt->prepare('SELECT count(*) FROM yichen_blog_articles WHERE is_deleted = 0');
       $stmt->execute();
       $result = $stmt->get_result();
       if (!$result) {

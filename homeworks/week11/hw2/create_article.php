@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="./reset.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+  <script src="https://cdn.ckeditor.com/4.7.3/basic/ckeditor.js"></script>
   <title>Blog 後台</title>
 </head>
 
@@ -56,12 +57,15 @@
         <option value="art">藝術</option>
       </select>
       <div class="add__article-input">
-        <textarea name="content" row="6"></textarea>
+        <textarea name="content"></textarea>
       </div>
       <div class="submit__btn">
         <button>送出</button>
       </div>
     </form>
   </main>
+  <script>
+    CKEDITOR.replace( 'content' );
+  </script>
 </body>
 </html>
