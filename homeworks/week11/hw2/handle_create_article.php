@@ -16,7 +16,7 @@
   }
   // 輸入內容檢查
   if (!$title || $category === 'not-selected'|| !$content) {
-    header('Location: create_article.php?errCode=emptyinput');
+    header('Location: create_article.php?errMsg=empty_input');
     die();
   }
   // 寫入資料庫
@@ -26,7 +26,7 @@
   if (!$result) {
     die($conn->error);
   }
-  header('Location: backstage.php?msg=addsuccess');
+  header('Location: backstage.php?successMsg=add_success');
 ?>
 
 

@@ -6,13 +6,11 @@
   $username = NULL;
   $user_data = NULL;
   $comment_data = NULL;
-  $role = NULL;
   if(!empty($_SESSION['username'])) {
     $username = $_SESSION['username'];
     $user_data = get_data_from_users($username);
     $comment_data = get_data_from_comments('username', $username);
-    $role = escape($user_data['role']);
-    $nickname = escape($user_data['nickname']);
+    $nickname = $user_data['nickname'];
   }
   
   $page = 1;
@@ -23,13 +21,12 @@
   $offset = ($page - 1) * $limit;
 
   $stmt = $conn->prepare(
-    "SELECT " . 
-    "C.id, C.username, C.content, C.is_deleted," .
-    "C.created_at, U.nickname " .
-    "FROM yichen_comments as C " . 
-    "LEFT JOIN yichen_users as U on C.username = U.username " .
-    "WHERE C.is_deleted is NULL " .
-    "ORDER BY C.id DESC limit ? offset ?"
+    'SELECT C.id, C.username, C.content, C.is_deleted,' .
+    'C.created_at, U.nickname ' .
+    'FROM yichen_comments as C ' . 
+    'LEFT JOIN yichen_users as U on C.user_id = U.id ' .
+    'WHERE C.is_deleted = "false" ' .
+    'ORDER BY C.id DESC limit ? offset ?'
   );
   $stmt->bind_param('ii', $limit, $offset);
   $result = $stmt->execute();
@@ -49,7 +46,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
-  <title>留言板</title>
+  <title>純後端 留言板</title>
 </head>
 <body>
   <header class="warning">注意！本站為練習用網站，因教學用途刻意忽略資安的實作，註冊時請勿使用任何真實的帳號或密碼。</header>
@@ -60,7 +57,7 @@
         if (!empty($_SESSION['username'])) {
       ?>
         <a href="./handle_logout.php">登出</a>
-        <a href="#" name="update__btn">編輯暱稱</a>
+        <a href="#" name="update__nickname-btn">編輯暱稱</a>
       <?php } else { ?>
         <a href="./register.php">註冊</a>
         <a href="./login.php">登入</a>
@@ -84,28 +81,28 @@
     ?>
       <div class="name__input">
         <span>Hello!</span>
-        <span class="nickname__input"><?php echo $nickname ?></span>
+        <span class="nickname__input"><?php echo escape($nickname); ?></span>
       </div>
     <?php } ?>
-    <?php 
-      if (hasPermission($user_data, 'create', $comment_data)) {
+    <?php
+      if (empty($_SESSION['username'])) {
     ?>
-    <form method="POST" action="handle_add_comment.php">
-    <?php 
-      if (!empty($_GET['errCode'])) {
-        $code = escape($_GET['errCode']);
-        echo '<h3 class="error__msg">' . set_msg($get_msg[0], $code) . '</h3>';
-      }
-    ?>
-      <div class="comments__input">
-        <textarea name="content" rows="6" placeholder="請輸入你的留言..."></textarea>
-        <button class="submit__btn">送出</button>
-      </div>
-    </form>
-    <?php } else if ($role === 'SUSPENDED') { ?>
-      <h3 class="input__warning">/ 你沒有發佈留言的權限 /</h3>
-    <?php } else { ?>
       <h3 class="input__warning">/ 請登入發布留言 /</h3>
+    <?php } else if (haspermission($user_data, 'add_comment', $comment_data)) { ?>
+      <form method="POST" action="handle_add_comment.php">
+      <?php 
+        if (!empty($_GET['errMsg'])) {
+          $err_msg = escape($_GET['errMsg']);
+          echo '<h3 class="error__msg">' . set_msg($msg['err_msg'], $err_msg) . '</h3>';
+        }
+      ?>
+        <div class="comments__input">
+          <textarea name="content" rows="6" placeholder="請輸入你的留言..."></textarea>
+          <button class="submit__btn">送出</button>
+        </div>
+      </form>
+    <?php } else { ?>
+      <h3 class="input__warning">/ 你沒有發佈留言的權限 /</h3>
     <?php } ?>
     <div class="board__hr"></div>
     <section>
@@ -119,16 +116,20 @@
             <span class="content__author"><?php echo escape($row['nickname']); ?></span>
             <span class="content__author">(@<?php echo $row['username']; ?>)</span>
             <span class="content__date">・<?php echo $row['created_at']; ?></span>
-            <?php if (hasPermission($user_data, 'update', $row)) { ?>
+      
               <div class="function_btn">
+              <?php if (haspermission($user_data, 'update', $row)) { ?>  
                 <a href="update_comment.php?id=<?php echo $row['id']; ?>">
                   <span class="material-icons-outlined">create</span>
                 </a>
+              <?php } ?>
+              <?php if (haspermission($user_data, 'delete', $row)) { ?>
                 <a href="handle_del_comment.php?id=<?php echo $row['id']; ?>">
                   <span class="material-icons-outlined">delete_forever</span>
                 </a>
+              <?php } ?>
               </div>
-            <? } ?>
+            
           </div>
           <p><?php echo escape($row['content']); ?></p>
         </div>
@@ -137,11 +138,14 @@
     </section>
     <div class="board__hr"></div>
     <?php 
-      $stmt = $conn->prepare("SELECT count(id) FROM yichen_comments WHERE is_deleted IS NULL");
+      $stmt = $conn->prepare("SELECT count(id) FROM yichen_comments WHERE is_deleted = false");
       $result = $stmt->execute();
       $result = $stmt->get_result();
       $row = $result->fetch_assoc();
+
       $count = $row['count(id)'];
+      // ceil(int|float $num): float
+      // Returns the next highest integer value by rounding up num if necessary.
       $total_page = ceil($count / $limit);
     ?>
     <div class="pagination">
@@ -165,18 +169,20 @@
     </div>
   </main>
   <script>
-    const nickname = document.querySelector('.nickname__input').innerText;
-    const inputUpdate = document.querySelector('form [name=nickname__update]');
+    const inputUpdate = document.querySelector('form input[name=nickname__update]');
     const btnUpdateDone = document.querySelector('.nickname__update-form button');
-    const btnUpdate = document.querySelector('.board__btn [name=update__btn]');
+    const btnUpdate = document.querySelector('.board__btn [name=update__nickname-btn]');
 
-    btnUpdate.addEventListener('click', (e) => {
-      inputUpdate.classList.toggle('hide');
-      btnUpdateDone.classList.toggle('hide');
-      inputUpdate.setAttribute('value', nickname);
-      setFocus(inputUpdate);
-    });
+    if (btnUpdate) {
+      btnUpdate.addEventListener('click', (e) => {
+        const nickname = document.querySelector('.nickname__input').innerText;
 
+        inputUpdate.classList.toggle('hide');
+        btnUpdateDone.classList.toggle('hide');
+        inputUpdate.setAttribute('value', nickname);
+        setFocus(inputUpdate);
+      });
+    }
     // 游標挪至 input 最後一位
     function setFocus(obj) {
       obj.focus();

@@ -7,9 +7,8 @@
   if (empty($_SESSION['username'])) {
     header('Location: index.php');
     die();
-  } else {
-    $username = $_SESSION['username'];
   }
+  $username = $_SESSION['username'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,6 +19,7 @@
   <link rel="stylesheet" href="./reset.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+  <script src="https://cdn.ckeditor.com/4.7.3/basic/ckeditor.js"></script>
   <title>Blog 後台</title>
 </head>
 
@@ -41,9 +41,9 @@
     <div class="backstage__title">新增文章</div>
     <form method="POST" action="handle_create_article.php" class="add__article-block">
       <?php
-        if (!empty($_GET['errCode'])) {
-          $code = escape($_GET['errCode']);
-          echo '<h3 class="error__msg">' . set_msg($get_msg[0], $code) . '</h3>';
+        if (!empty($_GET['errMsg'])) {
+          $err_msg = escape($_GET['errMsg']);
+          echo '<h3 class="error__msg">' . set_msg($msg['err_msg'], $err_msg) . '</h3>';
         }
       ?>
       <h3 class="add__article-title">發表文章：</h3>
@@ -57,12 +57,15 @@
         <option value="art">藝術</option>
       </select>
       <div class="add__article-input">
-        <textarea name="content" row="6"></textarea>
+        <textarea name="content"></textarea>
       </div>
       <div class="submit__btn">
         <button>送出</button>
       </div>
     </form>
   </main>
+  <script>
+    CKEDITOR.replace( 'content' );
+  </script>
 </body>
 </html>

@@ -7,10 +7,9 @@
   if (empty($_SESSION['username'])) {
     header('Location: index.php');
     die();
-  } else {
-    $username = $_SESSION['username'];
   }
-  $stmt = $conn->prepare("SELECT * FROM yichen_blog_articles WHERE is_deleted is NULL ORDER BY id DESC");
+  $username = $_SESSION['username'];
+  $stmt = $conn->prepare("SELECT * FROM yichen_blog_articles WHERE is_deleted = 0 ORDER BY id DESC");
   $stmt->execute();
   $result = $stmt->get_result();
   if (!$result) {
@@ -48,9 +47,9 @@
     <div class="backstage__title">文章列表</div>
     <div class="articles__list">
       <?php
-        if (!empty($_GET['msg'])) {
-          $msg = escape($_GET['msg']);
-          echo '<h3 class="error__msg">' . set_msg($get_msg[1], $msg) . '</h3>';
+        if (!empty($_GET['successMsg'])) {
+          $success_msg = escape($_GET['successMsg']);
+          echo '<h3 class="error__msg">' . set_msg($msg['success_msg'], $success_msg) . '</h3>';
         }
       ?>
       <?php 

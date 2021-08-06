@@ -1,10 +1,9 @@
-<?php 
+<?php
   session_start();
   require_once('conn.php');
   require_once('utils.php');
 
   $username = NULL;
-  $role = NULL;
   $comment_data = NULL;
   if (!empty($_SESSION['username'])) {
     $username = $_SESSION['username'];
@@ -18,6 +17,15 @@
     header('Location:index.php');
     die();
   }
+  $role_datas = get_data_from_role();
+  $role_array = array();
+  while ($data = $role_datas->fetch_assoc()) {
+    $temp = array(
+      'role_id' => $data['id'],
+      'role' => $data['role']
+    );
+    array_push($role_array, $temp);
+  }
   $page = 1;
   if (!empty($_GET['page'])) {
     $page = intval($_GET['page']);
@@ -25,7 +33,12 @@
   $limit = 10;
   $offset = ($page - 1) * $limit;
 
-  $stmt = $conn->prepare('SELECT * FROM yichen_users ORDER BY id ASC limit ? offset ?');
+  $sql =
+    'SELECT U.id, U.username, U.nickname, R.role ' .
+    'FROM yichen_users as U ' . 
+    'LEFT JOIN yichen_role as R on U.role_id = R.id ' .
+    'ORDER BY U.id ASC limit ? offset ?';
+  $stmt = $conn->prepare($sql);
   $stmt->bind_param('ii', $limit, $offset);
   $result = $stmt->execute();
   if (!$result) {
@@ -44,7 +57,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
   
-  <title>留言板後台</title>
+  <title>純後端 留言板後台</title>
 </head>
 <body>
   <header class="warning">注意！本站為練習用網站，因教學用途刻意忽略資安的實作，註冊時請勿使用任何真實的帳號或密碼。</header>
@@ -56,17 +69,66 @@
       </div>
     </div>
     <?php 
-      if (!empty($_GET['msg'])) {
-        $msg = escape($_GET['msg']);
-        $id = escape($_GET['id']);
-        echo '<h3 class="success__msg"># ID:' . $id . ' ' . set_msg($get_msg[1], $msg) . '</h3>';
+      if (!empty($_GET['successMsg'])) {
+        $success_msg = escape($_GET['successMsg']);
+        if ($success_msg === 'update_permission' || $success_msg === 'add_new_permission') {
+          echo '<h3 class="success__msg">' . set_msg($msg['success_msg'], $success_msg) . '</h3>';
+        } else {
+          $id = escape($_GET['id']);
+          echo '<h3 class="success__msg"># ID:' . $id . ' ' . set_msg($msg['success_msg'], $success_msg) . '</h3>';
+        }
       }
-      if (!empty($_GET['errCode'])) {
-        $code = escape($_GET['errCode']);
+      if (!empty($_GET['errMsg'])) {
+        $err_msg = escape($_GET['errMsg']);
         $id = escape($_GET['id']);
-        echo '<h3 class="error__msg"># ID:' . $id . ' ' . set_msg($get_msg[0], $code) . '</h3>';
+        echo '<h3 class="error__msg"># ID:' . $id . ' ' . set_msg($msg['err_msg'], $err_msg) . '</h3>';
       }
     ?>
+    <section class="section__table">
+      <table class="backstage__table">
+        <thead>
+          <tr>
+            <th width="160px">權限角色</th>
+            <th width="600px">說明</th>
+          </tr>
+        </thead>
+        <tbody>
+        <?php
+          $datas = get_data_from_role();
+          while ($role_data = $datas->fetch_assoc()) {
+        ?>
+          <tr>
+            <td><?php echo escape($role_data['role']); ?></td>
+            <td>
+              <form method="POST" action="./handle_update_permission.php?id=<?php echo escape($role_data['id']); ?>">
+                <input type="checkbox" name="permission[]" value="add_comment" id="1" <?php if ($role_data['add_comment'] == 1) { ?> checked <?php } ?> ><label for="1"> 新增文章</label>
+                <input type="checkbox" name="permission[]" value="update_all_comment" id="2" <?php if ($role_data['update_all_comment'] == 1) { ?> checked <?php } ?> ><label for="2"> 編輯所有留言</label>
+                <input type="checkbox" name="permission[]" value="delete_all_comment" id="3" <?php if ($role_data['delete_all_comment'] == 1) { ?> checked <?php } ?> ><label for="3"> 刪除所有留言</label>
+                <input type="checkbox" name="permission[]" value="update_self_comment" id="4" <?php if ($role_data['update_self_comment'] == 1) { ?> checked <?php } ?> ><label for="4"> 編輯自己的留言</label>
+                <input type="checkbox" name="permission[]" value="delete_self_comment" id="5" <?php if ($role_data['delete_self_comment'] == 1) { ?> checked <?php } ?> ><label for="5"> 刪除自己的留言</label>
+                <button class="role__fix-btn">SAVE</button>
+              </form>
+            </td>
+          <tr>
+        <?php } ?>
+        </tbody>
+      </table>
+    </section>
+    <section>
+      <form method="POST" action="handle_add_permission.php">
+        <div>    
+          自定義權限角色：  <input type="text" name="permission_role">
+        </div>
+        <div>
+          <input type="checkbox" name="permission[]" value="add_comment" id="1"><label for="1"> 新增文章</label>
+          <input type="checkbox" name="permission[]" value="update_all_comment" id="2"><label for="2"> 編輯所有留言</label>
+          <input type="checkbox" name="permission[]" value="delete_all_comment" id="3"><label for="3"> 刪除所有留言</label>
+          <input type="checkbox" name="permission[]" value="update_self_comment" id="4"><label for="4"> 編輯自己的留言</label>
+          <input type="checkbox" name="permission[]" value="delete_self_comment" id="5"><label for="5"> 刪除自己的留言</label>
+          <button class="role__fix-btn">送出</button>
+        <div>
+      </form>
+    </section>
     <section class="section__table">
       <table class="backstage__table">
         <thead>
@@ -88,12 +150,14 @@
             <td><?php echo escape($row['username']);?></td>
             <td><?php echo escape($row['nickname']);?></td>
             <td>
-              <form method="POST" action="./handle_update_role.php?id=<?php echo escape($row["id"]); ?>">
+              <form method="POST" action="./handle_update_role.php?id=<?php echo escape($row['id']); ?>">
                 <select name="role">
                   <option value="SELECTED">選擇</option>
-                  <option value="NORMAL">一般使用者</option>
-                  <option value="ADMIN">管理員</option>
-                  <option value="SUSPENDED">停權使用者</option>
+                  <?php 
+                    for ($i = 0; $i < count($role_array); $i++) {
+                  ?>
+                  <option value="<?php echo escape($role_array[$i]['role_id']); ?>"><?php echo escape($role_array[$i]['role']); ?></option>
+                  <?php } ?>
                 </select>
                 <button class="role__fix-btn">修改</button>
               </form>
@@ -133,3 +197,5 @@
   </main>
 </body>
 </html>
+
+

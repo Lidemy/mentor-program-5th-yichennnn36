@@ -1,22 +1,23 @@
 <?php
   require_once('conn.php');
   // 建立 array 存取訊息，分為(err_code 錯誤訊息、msg 提示訊息)
-  $get_msg=array(
-    $err_code=array(
-      'emptycontent' => '請輸入內容！',
-      'emptyinput' => '資料不齊全，請重新輸入！',
-      'wronginfo' => '帳號或密碼錯誤，請重新輸入！',
+  $msg = array(
+    'err_msg' => array(
+      'empty_content' => '請輸入內容！',
+      'empty_input' => '資料不齊全，請重新輸入！',
+      'wrong_info' => '帳號或密碼錯誤，請重新輸入！',
     ),
-    $msg=array(
-      'addsuccess' => '文章新增成功！',
-      'updatesuccess' => '文章修改成功！',
+    'success_msg' => array(
+      'add_success' => '文章新增成功！',
+      'update_success' => '文章修改成功！',
     )
   );
+
   // set 錯誤或提示訊息
-  function set_msg($array, $code) {
+  function set_msg($array, $msg) {
     // 避免使用者利用網址輸入奇怪的內容
-    if (!array_key_exists($code, $array)) die('有地方出錯了！請重新操作');
-    return $array[$code];
+    if (!array_key_exists($msg, $array)) die('有地方出錯了！請重新操作');
+    return $array[$msg];
   }
   function get_data_from_users($username) {
     global $conn;
@@ -28,11 +29,7 @@
     }
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
-    if (!$row) {
-      die('有地方出錯了！請重新操作');
-    } else {
-      return $row;
-    }
+    return $row;
   }
   // 抓 commments table 資料，分成 WHERE id=?/username=?
   function get_data_from_articles($row_name, $value) {
@@ -51,11 +48,7 @@
     }
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
-    if (!$row) {
-      die('有地方出錯了！請重新操作');
-    } else {
-      return $row;
-    }
+    return $row;
   }
   // 跳脫
   function escape($str) {
