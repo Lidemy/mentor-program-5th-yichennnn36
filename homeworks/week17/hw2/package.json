@@ -1,0 +1,36 @@
+{
+  "name": "week17_draw",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "db:migrate": "npx sequelize-cli db:migrate",
+    "start": "npm run db:migrate && node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "ejs": "^3.1.6",
+    "ejs-locals": "^1.0.2",
+    "express": "^4.17.1",
+    "express-flash": "git://github.com/RGBboy/express-flash.git",
+    "express-session": "^1.17.2",
+    "express-validator": "^6.12.1",
+    "form-data": "^4.0.0",
+    "imgur": "^1.0.2",
+    "imgur-node-api": "^0.1.0",
+    "multer": "^1.4.3",
+    "mysql2": "^2.3.0",
+    "node-fetch": "^2.6.1",
+    "sequelize": "^6.6.5"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.2.0"
+  },
+  "description": "",
+  "engines": {
+    "node": "10.x"
+  }
+}
