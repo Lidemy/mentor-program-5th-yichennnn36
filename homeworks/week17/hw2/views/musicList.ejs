@@ -1,0 +1,28 @@
+<% layout('backstageLayout') %>
+<section class="main">
+  <div class="wrapper">
+    <div class="music-list row">
+      <% if (successMessage && successMessage.length > 0) { %>
+        <div class="alert alert-success" role="alert">
+          ＊ <%= successMessage %>
+        </div>
+      <% } %>
+      <% for (const musicBlock of music) { %>
+        <div class="card col-sm-4" style="width: 16rem;">
+          <div class="card-img-block">
+            <img src="<%= musicBlock.imageUrl %>" class="card-img-top" alt="歌曲圖片">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title fs-6"><%= musicBlock.name %></h5>
+            <p class="card-text fs-6"><%= musicBlock.description %></p>
+            <p class="fs-6">機率：<%= musicBlock.probability %></p>
+          </div>
+          <div class="card-body">
+            <a href="/editMusic/<%= musicBlock.id %>" class="card-link">Edit</a>
+            <a href="/deleteMusic/<%= musicBlock.id %>" class="card-link">Delete</a>
+          </div>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</section>

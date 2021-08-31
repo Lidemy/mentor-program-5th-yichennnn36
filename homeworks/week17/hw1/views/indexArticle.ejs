@@ -1,0 +1,15 @@
+<% layout('indexLayout') %>
+<main class="wrapper">
+  <div class="one__article-block">
+    <img src="/img/test-pic.png" class="articles__img">
+    <div class="one__article-content">
+      <div class="one__article-info">
+        <span class="one__article-at-time"><%= moment(article.createdAt).format('YYYY-MM-DD hh:mm') %></span>
+        <span class="material-icons-outlined md-16">folder</span>
+        <span class="one__article-category"><%= article.Category.name %></span>
+      </div>
+      <h2 class="one__article-title"><%= article.title %></h2>
+      <p class="one__article-context"><%- article.content %></p>
+    </div>
+  </div>
+</main>

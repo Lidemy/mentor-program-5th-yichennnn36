@@ -1,0 +1,35 @@
+<% layout('indexLayout') %>
+<section class="main">
+  <div class="wrapper">
+    <div class="login-block">
+      <div class="main-title">
+        Log in
+      </div>
+      <% if (errMessage && errMessage.length > 0) { %>
+        <% for (const errMsg of errMessage) { %>
+          <div class="alert alert-warning" role="alert">
+            ＊ <%= errMsg %>
+          </div>
+        <% } %>
+      <% } %>
+      <form action="/login" method="POST">
+        <div class="mb-3 row">
+          <label for="inputPassword" class="col-sm-3 col-form-label">Username</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="inputUsername" name="username">
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label for="inputPassword" class="col-sm-3 col-form-label">Password</label>
+          <div class="col-sm-9">
+            <input type="password" class="form-control" id="inputPassword" name="password">
+          </div>
+        </div>
+        <div class="text-end">
+          <button type="submit" class="btn btn-secondary mt-2">登入</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<script src="/js/focus.js"></script>
