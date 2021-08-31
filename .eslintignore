@@ -1,3 +1,7 @@
 examples/
 dist
 bundle.js
+migrations/
+models/
+controllers/
+ckeditor.js
