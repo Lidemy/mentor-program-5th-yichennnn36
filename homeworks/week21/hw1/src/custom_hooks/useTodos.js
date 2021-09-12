@@ -3,7 +3,7 @@ import useInput from './useInput';
 
 const writeTodosToLocalStorage = (todos) => {
   window.localStorage.setItem("todos", JSON.stringify(todos));
-}
+};
 
 const useTodos = () => {
   let id = useRef(1);
@@ -74,16 +74,19 @@ const useTodos = () => {
 
   const handleClickAll = () => {
     setFilter('All');
-  }
+  };
+
   const handleClickActive = () => {
     setFilter('Active');
-  }
+  };
+
   const handlClickCompleted = () => {
     setFilter('Completed');
-  }
+  };
+
   const handleClearAllCompleted = () => {
     setTodos(todos.filter(todo => !todo.isChecked));
-  }
+  };
 
   return {
     inputValue,
