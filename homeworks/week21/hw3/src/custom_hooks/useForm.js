@@ -6,7 +6,7 @@ const transferSuccessMessage = (data) => {
     ・暱稱：${data.name}
     ・電子郵件：${data.email}
     ・手機號碼：${data.phone}
-    ・報名類型：${data.entryType === 'bed'? '躺在床上用想像力實作' : '趴在地上滑手機找現成的'}
+    ・報名類型：${data.entryType === 'bed' ? '躺在床上用想像力實作' : '趴在地上滑手機找現成的'}
     ・怎麼知道這個活動的：${data.referal}
     ・其他 對活動的一些建議：${data.suggestion}`;
   return result;
@@ -31,10 +31,10 @@ const useForm = () => {
   const handleInputChange = (e) => {
     const { value, name } = e.target;
 
-    setInputValue({
+    setInputValue((inputValue) => ({
       ...inputValue,
       [name]: value,
-    });
+    }));
   };
 
   const handleCheckValid = (e) => {
@@ -49,11 +49,11 @@ const useForm = () => {
 
     if (name === 'email' && value) {
       const emailBoolean = emailRule.test(value) ? false : true;
-      return setIsInValid({...isInValid, email: emailBoolean})
+      return setIsInValid({ ...isInValid, email: emailBoolean })
     }
     if (name === 'phone' && value) {
       const phoneBoolean = phoneRule.test(value) ? false : true;
-      return setIsInValid({...isInValid, phone: phoneBoolean})
+      return setIsInValid({ ...isInValid, phone: phoneBoolean })
     }
   }
 
