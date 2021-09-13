@@ -1,5 +1,5 @@
-
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const QuestionBlock = styled.div`
   margin-top: 50px;
@@ -77,6 +77,20 @@ const InputBlock = ({
   );
 };
 
+InputBlock.propTypes = {
+  question: PropTypes.string,
+  required: PropTypes.bool,
+  type: PropTypes.string,
+  name: PropTypes.string,
+  placeholder: PropTypes.string,
+  value: PropTypes.string,
+  handleInputChange: PropTypes.func,
+  handleCheckValid: PropTypes.func,
+  hasErr: PropTypes.bool,
+  isInValid: PropTypes.object,
+  errMessage: PropTypes.array,
+};
+
 const RadioBlock = ({
   question,
   value,
@@ -110,6 +124,15 @@ const RadioBlock = ({
       {required && hasErr && !value && <Alert>{errMessage}</Alert>}
     </QuestionBlock>
   )
-}
+};
+
+RadioBlock.propTypes = {
+  question: PropTypes.string,
+  required: PropTypes.bool,
+  value: PropTypes.string,
+  handleInputChange: PropTypes.func,
+  hasErr: PropTypes.bool,
+  errMessage: PropTypes.array,
+};
 
 export { InputBlock, RadioBlock };
