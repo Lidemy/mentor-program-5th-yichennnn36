@@ -1,23 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import { GlobalStyle, Root } from './AppStyle';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import HomePage from '../../pages/HomePage/HomePage';
 import ListPage from '../../pages/ListPage/ListPage';
 import ArticlePage from '../../pages/ArticlePage/ArticlePage';
 import LoginPage from '../../pages/LoginPage/LoginPage';
-import { RegisterPage } from '../../pages/RegisterPage';
+import RegisterPage from '../../pages/RegisterPage';
 import PublishPage from '../../pages/PublishPage';
 import AboutPage from '../../pages/AboutPage/AboutPage';
 import { AuthContext } from '../../contexts';
 import { getMe } from '../../webAPI';
 import ScrollToTop from '../../ScrollToTop';
-
-const Root = styled.div`
-  min-height: 100%;
-  margin-bottom: -20px;
-`;
 
 function App() {
   const [user, setUser] = useState('fetching');
@@ -36,6 +31,7 @@ function App() {
     <AuthContext.Provider value={{ user, setUser }}>
       <Root>
         <Router basename="/thosepplnexto">
+          <GlobalStyle />
           <ScrollToTop />
           {user !== 'fetching' && <Header />}
           <Switch className="content">

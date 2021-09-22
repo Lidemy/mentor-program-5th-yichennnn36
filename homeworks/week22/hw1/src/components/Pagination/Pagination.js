@@ -1,27 +1,6 @@
 import React, { memo, useCallback } from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
-
-const PaginationBlock = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 100px;
-  font-family: 'Comfortaa', sans-serif;
-  color: grey;
-`;
-
-const PageCode = styled.li`
-  list-style: none;
-  cursor: pointer;
-
-  ${props => props.$status === "nomore" && `color: white`};
-  ${props => props.$status === "activePage" && `color: black; font-size: 20px;`};
-
-  & + & {
-    margin-left: 20px;
-  }
-`;
+import { PaginationBlock, PageCode } from './PaginationStyle';
 
 const Pagination = ({
   page,

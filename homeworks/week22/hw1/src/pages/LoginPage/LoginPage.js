@@ -1,7 +1,7 @@
 import React, { useState, useContext, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { Container, Title, Form, InputItem, Button, ErrMessage } from '../RegisterPage/RegisterPage';
 import { useHistory } from "react-router-dom";
+import { Container, Title, Form, InputItem, Button, ErrMessage } from '../../components/Form/FormStyle';
 import { login, getMe } from '../../webAPI';
 import { setAuthToken } from '../../utils';
 import { AuthContext } from '../../contexts';

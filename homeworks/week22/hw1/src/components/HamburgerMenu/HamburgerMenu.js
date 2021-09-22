@@ -1,68 +1,11 @@
 import React, { useContext } from 'react';
-import styled, { keyframes } from 'styled-components';
-import { slideInRight } from 'react-animations';
 import PropTypes from 'prop-types';
-import { Link } from "react-router-dom";
 import { AuthContext } from '../../contexts';
-import { MEDIA_QUERY_LG } from '../../style';
+import { Nav, NavLogout, Hamburger, HamburgerNav } from './HamburgerMenuStyle';
 import { ReactComponent as MenuWhiteButton } from '../../images/menu_white.svg';
 import { ReactComponent as MenuBlackButton } from '../../images/menu_black.svg';
 import { ReactComponent as CloseWhiteButton } from '../../images/close_white.svg';
 import { ReactComponent as CloseBlackButton } from '../../images/close_black.svg';
-
-const Nav = styled(Link)`
-  margin: 0 14px;
-  transition: transform 0.3s;
-  text-decoration: none;
-
-  &:hover {
-    transform: scale(1.1);
-  }
-`;
-
-const NavLogout = styled.a`
-  margin: 0 14px;
-  transition: transform 0.3s;
-  text-decoration: none;
-  cursor: pointer;
-
-  &:hover {
-    transform: scale(1.1);
-  }
-`;
-
-const Hamburger = styled.div`
-  position: absolute;
-  right: 30px;
-  cursor: pointer;
-
-  ${MEDIA_QUERY_LG} {
-    visibility: hidden;
-  }
-
-  & svg {
-    width: 40px;
-    height: 40px;
-  }
-`;
-
-const HamburgerNav = styled.div`
-  position: absolute;
-  top: 82px;
-  right: -30px;
-  width: 60vw;
-  height: calc(100vh - 90px);
-  background: ${props => props.theme.color.secondary};
-  z-index: -1;
-  display: flex;
-  flex-direction: column;
-  padding: 20px 0 0;
-  animation: 0.5s ${keyframes`${slideInRight}`};
-
-  & a {
-    margin: 24px 50px;
-  }
-`;
 
 const HamburgerMenu = ({
   isOpen,
