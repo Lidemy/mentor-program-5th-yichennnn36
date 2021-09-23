@@ -4,7 +4,7 @@ import { Container, Title, PostTitle, PostDate, ErrMessage } from '../../compone
 import { PostLink, PostContainer, PostData } from './HomePageStyle';
 import MemoPagination from '../../components/Pagination/Pagination';
 import Loading from '../../components/Loading';
-import usePosts from '../../custom_hooks/usePosts';
+import usePosts from '../../customHooks/usePosts';
 
 const Post = ({ post }) => {
   return (
