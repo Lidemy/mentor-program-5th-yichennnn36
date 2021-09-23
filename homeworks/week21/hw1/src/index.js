@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './styles.css';
-import TodoApp from './TodoApp';
-import { ThemeProvider } from 'styled-components';
+import TodoApp from './components/TodoApp/TodoApp';
+import { ThemeProvider, createGlobalStyle } from 'styled-components';
 
 const theme = {
   colors: {
@@ -15,12 +14,28 @@ const theme = {
   }
 }
 
+const GlobalStyle = createGlobalStyle`
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  #root {
+    height: 100%;
+    width: 100%;
+  }
+`;
+
 function App() {
   return <TodoApp />;
 }
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
+    <GlobalStyle />
     <App />
   </ThemeProvider>,
   document.getElementById('root')
