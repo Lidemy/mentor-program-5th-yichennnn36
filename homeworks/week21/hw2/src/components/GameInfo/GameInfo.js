@@ -10,7 +10,6 @@ const GameInfo = ({ isBlackNext, winner, board, setBoard }) => {
 
   const handleRestart = () => {
     setBoard(board.map(row => row.map(col => null)));
-    console.log('click')
   };
 
   return (

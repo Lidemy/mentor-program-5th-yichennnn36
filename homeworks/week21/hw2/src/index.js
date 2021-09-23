@@ -31,9 +31,13 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-ReactDOM.render(
-  <GlobalStyle>
-    <Game />
-  </GlobalStyle>,
-  document.getElementById('root')
-);
+const App = () => {
+  return (
+    <>
+      <GlobalStyle />
+      <Game />
+    </>
+  )
+};
+
+ReactDOM.render(<App />, document.getElementById('root'));
