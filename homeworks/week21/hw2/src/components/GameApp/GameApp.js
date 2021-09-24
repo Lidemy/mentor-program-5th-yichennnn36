@@ -1,36 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
-import './index.css';
-
-import useBoard from './custom_hooks/useBoard';
-import Gobang from './components/Gobang';
-import GameInfo from './components/GameInfo';
-
-const Board = styled.div`
-  display: inline-block;
-  margin-right: 40px;
-`;
-
-const Row = styled.div`
-  display: flex;
-`;
-
-const Footer = styled.div`
-  width: 100%;
-  background: black;
-  padding: 16px 0;
-  color: white;
-  font-size: 14px;
-  text-align: center;
-  margin-top: 120px;
-
-  @media screen and (min-width: 1000px) {
-    margin-top: 0;
-  }
-`;
+import { Board, Row, Footer } from './GameAppStyle';
+import useBoard from '../../customHooks/useBoard';
+import Gobang from '../Gobang/Gobang';
+import GameInfo from '../GameInfo/GameInfo';
 
 const Game = () => {
-  const { board, winner, isBlackNext, handleChessClick } = useBoard();
+  const { board, winner, setBoard, isBlackNext, handleChessClick } = useBoard();
 
   return (
     <>
@@ -59,7 +34,7 @@ const Game = () => {
             })
           }
         </Board>
-        <GameInfo isBlackNext={isBlackNext.current} winner={winner} />
+        <GameInfo isBlackNext={isBlackNext.current} winner={winner} board={board} setBoard={setBoard} />
       </div>
       <Footer>
         Copyright © 2021 YichenLiu Gobang All rights Reserved.

@@ -10,7 +10,6 @@ const useTodos = () => {
   const { inputValue, setInputValue, handleInputChange } = useInput();
   const [todos, setTodos] = useState(() => {
     // run lazy initializers
-    console.log('init');
     let todoData = JSON.parse(window.localStorage.getItem("todos")) || [];
     if (todoData.length > 0) {
       id.current = todoData[todoData.length - 1].id + 1;

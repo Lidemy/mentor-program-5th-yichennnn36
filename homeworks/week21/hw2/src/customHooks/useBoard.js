@@ -46,6 +46,7 @@ const useBoard = () => {
   return {
     board,
     winner,
+    setBoard,
     isBlackNext,
     handleChessClick
   }

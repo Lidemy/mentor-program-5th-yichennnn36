@@ -1,7 +1,5 @@
-import { memo } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { pulse } from 'react-animations';
-
 
 const Info = styled.div`
   font-family: 'Roboto Mono', monospace; 
@@ -66,42 +64,4 @@ transition: transform 0.3s;
 }
 `;
 
-const handleRestart = () => {
-  window.location.reload();
-}
-
-const RestartBtn = () => {
-  return (
-    <Button onClick={handleRestart}>RESTART</Button>
-  );
-};
-
-const MemoRestartBtn = memo(RestartBtn);
-
-const GameInfo = ({ isBlackNext, winner }) => {
-  return (
-    <Info>
-      <h1>五子棋 Gobang</h1>
-      {!winner && (
-        <>
-          <GameDesc>
-            <h3>Next Player ► ▷ ► {isBlackNext ? '黑子' : '白子'}</h3>
-            <ChessIcon isBlackNext={isBlackNext} />
-          </GameDesc>
-          <MemoRestartBtn />
-        </>
-      )}
-      {winner && (
-        <WinnerInfo>
-          <div>
-            {winner === 'black' && `> 獲勝的是黑子 <`}
-            {winner === 'white' && '> 獲勝的是白子 <'}
-          </div>
-          <MemoRestartBtn />
-        </WinnerInfo>
-      )}
-    </Info>
-  )
-};
-
-export default GameInfo;
+export { Info, GameDesc, ChessIcon, WinnerInfo, Button };
